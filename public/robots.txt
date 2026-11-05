@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /go/
 
-Sitemap: https://dealnest.pages.dev/sitemap.xml
+Sitemap: https://dealwillow.com/sitemap.xml
