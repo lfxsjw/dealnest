@@ -1,0 +1,196 @@
+---
+// 商品卡片组件：首页的每一张优惠卡片都由它渲染
+// 数据从 deals.json 来，这里只负责"长什么样"
+const { deal } = Astro.props;
+
+// 计算折扣信息（构建时算好，页面不跑多余计算）
+const hasCode = !!deal.code;
+const hasList = typeof deal.listPrice === 'number';
+const hasPrice = typeof deal.price === 'number';
+const hasRating = typeof deal.rating === 'number';
+const save = hasList ? deal.listPrice - deal.price : 0;
+const savePct = hasList ? Math.round((1 - deal.price / deal.listPrice) * 100) : 0;
+
+// 评论数格式化：4600 → 4.6k，240000 → 240k
+function fmtReviews(n) {
+  if (n >= 1000) {
+    const v = (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '');
+    return v + 'k';
+  }
+  return String(n);
+}
+
+// 星星填充宽度百分比（满分 5）
+const starWidth = hasRating ? (deal.rating / 5) * 100 : 0;
+
+// 店铺卡（没有具体价格的）按钮文案单独显示
+const isStore = !hasPrice;
+
+// 搜索用的关键词串（小写，前端过滤时匹配）
+const searchHay = `${deal.brand} ${deal.title} ${deal.variant}`.toLowerCase();
+---
+
+<article
+  class="card"
+  data-deal-card
+  data-category={deal.category}
+  data-search={searchHay}
+>
+  <!-- 商品图 + 折扣角标 -->
+  <div class="thumb">
+    {hasList && <span class="pct">-{savePct}%</span>}
+    <img src={deal.image} alt={deal.title} loading="lazy" width="300" height="300" />
+  </div>
+
+  <!-- 信息区 -->
+  <div class="body">
+    <p class="brand">{deal.brand}</p>
+    <h3 class="title">{deal.title}</h3>
+    <p class="variant">{deal.variant}</p>
+
+    <!-- 价格行：现价大 + 原价划线；店铺卡没有具体价格时显示引导文字 -->
+    {hasPrice ? (
+      <p class="price-row">
+        <span class="price">${deal.price.toFixed(2)}</span>
+        {hasList && <span class="list">${deal.listPrice.toFixed(2)}</span>}
+      </p>
+    ) : (
+      <p class="price-see">See all store deals →</p>
+    )}
+    {hasList && <p class="save">You save ${save.toFixed(2)}</p>}
+
+    <!-- 优惠码：橙色等宽字 + 虚线框；没码显示灰字 -->
+    {hasCode ? (
+      <p class="code-row">
+        <span class="code">{deal.code}</span>
+        <span class="expires">to {deal.expires}</span>
+      </p>
+    ) : (
+      <p class="code-row"><span class="nocode">No code needed</span></p>
+    )}
+
+    <!-- 评分：金星 + 分数 + 评论数；店铺卡无评分就不渲染 -->
+    {hasRating && (
+      <p class="rating-row">
+        <span class="stars" aria-hidden="true"><span class="stars-fill" style={`width:${starWidth}%`}>★★★★★</span>★★★★★</span>
+        <span class="rating-num">{deal.rating}</span>
+        <span class="reviews">({fmtReviews(deal.reviews ?? 0)})</span>
+      </p>
+    )}
+
+    <!-- 行动按钮：有码 = 复制码并跳转；没码 = 直接看 -->
+    <a
+      class="cta"
+      href={`/go/${deal.id}`}
+      target="_blank"
+      rel="noopener sponsored"
+      data-deal-btn
+      data-code={deal.code || undefined}
+    >
+      {hasCode ? `Copy code & save` : isStore ? `Browse store deals` : `View on Amazon`}
+    </a>
+    <p class="cta-sub">{hasCode ? 'Code auto-copied, opens Amazon' : 'Opens Amazon in a new tab'}</p>
+  </div>
+</article>
+
+<style>
+  /* ===== 卡片：白底圆角 + 轻阴影，悬停时抬一下 ===== */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+  }
+
+  /* 图区：白底正方形，商品图完整显示不裁切 */
+  .thumb {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+  }
+  .thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+  /* 折扣角标：黄色胶囊 */
+  .pct {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--yellow-bg); color: var(--yellow-ink);
+    font-size: 12px; font-weight: 700;
+    padding: 3px 9px; border-radius: 999px;
+  }
+
+  .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+  .brand { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .title {
+    margin: 0; font-size: 15.5px; font-weight: 700; line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .variant { margin: 0; font-size: 12.5px; color: var(--muted); }
+
+  /* 价格行 */
+  .price-row { margin: 6px 0 0; display: flex; align-items: baseline; gap: 8px; }
+  .price { font-size: 22px; font-weight: 800; }
+  .list { font-size: 14px; color: var(--muted); text-decoration: line-through; }
+  .price-see { margin: 6px 0 0; font-size: 13.5px; font-weight: 600; color: var(--blue); }
+
+  /* 省钱黄条 */
+  .save {
+    margin: 0;
+    align-self: flex-start;
+    background: var(--yellow-bg); color: var(--yellow-ink);
+    font-size: 12.5px; font-weight: 600;
+    padding: 2px 8px; border-radius: 6px;
+  }
+
+  /* 优惠码：橙色等宽字 + 虚线框 */
+  .code-row { margin: 8px 0 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .code {
+    font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--orange);
+    background: var(--orange-soft);
+    border: 1.5px dashed var(--orange);
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .expires { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .nocode { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+
+  /* 评分行 */
+  .rating-row { margin: 4px 0 10px; display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  .stars { position: relative; display: inline-block; color: #d1d5db; letter-spacing: 1px; }
+  .stars-fill {
+    position: absolute; top: 0; left: 0;
+    overflow: hidden; white-space: nowrap;
+    color: var(--star); letter-spacing: 1px;
+  }
+  .rating-num { font-weight: 700; }
+  .reviews { color: var(--muted); }
+
+  /* 主按钮：蓝底白字 */
+  .cta {
+    margin-top: auto;
+    display: block; text-align: center;
+    background: var(--blue); color: #fff;
+    border-radius: 10px;
+    padding: 11px 12px;
+    font-size: 14.5px; font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .cta:hover { background: var(--blue-dark); }
+  .cta-sub { margin: 6px 0 0; text-align: center; font-size: 11.5px; color: var(--muted); }
+</style>

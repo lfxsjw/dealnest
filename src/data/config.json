@@ -1,0 +1,5 @@
+{
+  "siteName": "DealNest",
+  "affiliateTag": "yourtag-20",
+  "_说明": "全站配置：siteName 是站名；affiliateTag 是亚马逊联盟追踪码（Amazon Associates tag）。联盟账号批下来后，把 yourtag-20 换成你的真实 tag（一般是 xxxxx-20 格式），重新部署一次，全站所有链接自动带上你的佣金追踪。"
+}

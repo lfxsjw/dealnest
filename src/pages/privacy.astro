@@ -1,0 +1,64 @@
+---
+// 隐私与披露页：美国 FTC（联邦贸易委员会）要求联盟关系必须披露，这页不能省
+import Base from '../layouts/Base.astro';
+import config from '../data/config.json';
+
+const { siteName } = config;
+---
+<Base title={`Privacy & Disclosure — ${siteName}`} description="How we earn commissions, what promo codes can and can't do, and how Amazon tracking works.">
+  <main class="wrap page">
+    <h1>Privacy &amp; Disclosure</h1>
+    <p class="lead">The short version: we earn a commission when you buy through our links. It never changes what you pay.</p>
+
+    <section>
+      <h2>Affiliate disclosure</h2>
+      <p>{siteName} is a participant in the Amazon Associates Program, an affiliate advertising program.
+      As an Amazon Associate we earn from qualifying purchases — when you click a deal button and buy
+      the product, Amazon pays us a small commission.</p>
+      <p><strong>This costs you nothing extra.</strong> The price you pay at Amazon is exactly the same
+      whether you use our link or type the address yourself. Commissions are paid by Amazon out of its
+      own margin.</p>
+    </section>
+
+    <section>
+      <h2>How promo codes work</h2>
+      <p>Promo codes are provided by sellers and brands to promote their products. We publish the code,
+      and you paste it at Amazon checkout (in the <em>Gift cards &amp; promotional codes</em> field) to
+      get the discount.</p>
+      <p>Codes can expire, run out, or be limited to one use per account without notice. If a code
+      doesn't work, you'll simply pay Amazon's regular price — always check the order total before
+      you place the order.</p>
+    </section>
+
+    <section>
+      <h2>Cookies &amp; tracking</h2>
+      <p>When you click through to Amazon, Amazon associates your session with our affiliate tag for
+      up to 24 hours. This is standard Amazon behavior and is governed by
+      <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=468496" target="_blank" rel="noopener">Amazon's Privacy Notice</a>.</p>
+      <p>We do not collect, store, or share any personal data ourselves. We do not require accounts,
+      and we do not sell or share your information with anyone.</p>
+    </section>
+
+    <section>
+      <h2>Trademarks</h2>
+      <p>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
+      {siteName} is not affiliated with, endorsed by, or sponsored by Amazon or any brand featured on
+      this site.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Questions about a deal or this disclosure? Reach us at
+      <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .page { max-width: 720px; padding-top: 48px; padding-bottom: 24px; }
+  .page h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.4px; margin: 0 0 8px; }
+  .lead { color: var(--muted); font-size: 16px; margin-bottom: 8px; }
+  .page section { margin-top: 28px; }
+  .page h2 { font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+  .page p { margin: 0 0 12px; font-size: 15px; color: #374151; }
+</style>

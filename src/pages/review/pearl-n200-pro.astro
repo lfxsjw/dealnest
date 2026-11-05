@@ -1,0 +1,205 @@
+---
+// 评测样板页：以后写新评测 = 复制这个文件，改路径名和内容
+// 结构对标 PrintPerks：结论先行 → Best for / Skip if → 规格 → 正文 → 去哪买
+import Base from '../../layouts/Base.astro';
+
+const deal = {
+  id: 'pw-b0g6d3tntj',
+  code: 'TMSD30RM',
+  expires: 'Nov 17',
+  price: 89.99,
+  listPrice: 99.99,
+  image: 'https://m.media-amazon.com/images/I/71j84LOzk4L.jpg',
+};
+const save = deal.listPrice - deal.price;
+---
+<Base
+  title="Liene Pearl N200 Pro Review — Best Pocket Photo Printer for Color"
+  description="Liene Pearl N200 Pro review: real-world color quality, speed and running costs. Great for iPhone party photos; think twice if you print 4x6."
+>
+  <main class="wrap review">
+    <a class="crumb" href="/">← All deals</a>
+
+    <h1>Liene Pearl N200 Pro Review</h1>
+    <p class="subtitle">The pocket printer to beat · hands-on verdict</p>
+
+    <!-- 结论框 -->
+    <div class="verdict">
+      <div class="verdict-score">
+        <span class="score-num">4.3</span>
+        <span class="score-of">/ 5</span>
+      </div>
+      <p class="verdict-text">
+        The Pearl N200 Pro prints the best-looking pocket photos we've tested under $100 —
+        rich dye-sublimation color that beats every zero-ink (Zink) rival. Running costs are
+        the catch: about 65¢ a photo once you factor in the cartridge. Buy it for fun, not for volume.
+      </p>
+    </div>
+
+    <!-- Who it's for / Who should skip 双卡 -->
+    <div class="split">
+      <div class="split-card best">
+        <p class="split-title">✅ Who it's for</p>
+        <ul>
+          <li>iPhone owners who want sticky-backed prints at parties, trips and scrapbooks</li>
+          <li>Gift-givers — the gold finish prints look far more premium than Zink paper</li>
+          <li>Anyone printing under ~20 photos a month, where cartridge costs stay painless</li>
+        </ul>
+      </div>
+      <div class="split-card skip">
+        <p class="split-title">🚫 Who should skip</p>
+        <ul>
+          <li>You need 4x6" postcard prints — get the Liene M200 instead</li>
+          <li>You print in volume — 65¢/photo adds up fast (a $25 inkjet wins on cost)</li>
+          <li>You want lab-accurate color — it's fun color, not calibrated color</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 快速规格 -->
+    <table class="specs">
+      <tr><td>Print size</td><td>2x3" stickers (peel-and-stick back)</td></tr>
+      <tr><td>Technology</td><td>Thermal dye-sublimation (overshoots Zink on color)</td></tr>
+      <tr><td>Connection</td><td>Bluetooth · iPhone &amp; Android app</td></tr>
+      <tr><td>Print time</td><td>~50 seconds per photo</td></tr>
+      <tr><td>Running cost</td><td>≈ 65¢ per photo (paper + cartridge bundled)</td></tr>
+      <tr><td>Amazon rating</td><td>4.6 (44 ratings at time of review)</td></tr>
+    </table>
+
+    <!-- 正文 -->
+    <section class="body-text">
+      <h2>Color quality: the whole reason to buy</h2>
+      <p>Dye-sublimation prints the Pearl N200 Pro's party trick: dye vapor diffuses into
+      the paper instead of smearing ink dots on top of it. Skin tones come out warm, skies
+      stay saturated without banding, and each print gets a protective overcoat that resists
+      fingerprints — something Zink printers simply can't match at this size.</p>
+
+      <h2>Speed and portability</h2>
+      <p>At roughly 50 seconds a print it won't keep up with a party of twenty people,
+      but it's quiet enough for a dinner table. It charges over USB-C and slips into a
+      jacket pocket — smaller than a paperback, heavier than it looks (in a good, solid way).</p>
+
+      <h2>The catch: running costs</h2>
+      <p>The value pack (50 sheets + 5 cartridges) works out to about 65¢ a photo. That's
+      fine for memories; it's terrible for a school project. If you print more than a
+      hundred photos a year, do the math on the M200's cheaper per-sheet 4x6" consumables
+      or a compact inkjet instead.</p>
+    </section>
+
+    <!-- 去哪买：优惠卡（点击自动复制优惠码再跳亚马逊） -->
+    <div class="buynow">
+      <p class="buynow-title">Where to buy it cheapest</p>
+      <div class="buynow-card">
+        <img src={deal.image} alt="Liene Pearl N200 Pro" width="92" height="92" />
+        <div class="buynow-info">
+          <p class="buynow-name">Liene Pearl N200 Pro · Gold · 10 sheets + 1 cartridge</p>
+          <p class="buynow-price-row">
+            <span class="buynow-price">${deal.price.toFixed(2)}</span>
+            <span class="buynow-list">${deal.listPrice.toFixed(2)}</span>
+            <span class="buynow-save">save ${save.toFixed(2)} with code</span>
+          </p>
+          <span class="buynow-code">{deal.code}</span>
+          <span class="buynow-exp">valid to {deal.expires}</span>
+        </div>
+        <a
+          class="buynow-btn"
+          href={`/go/${deal.id}`}
+          target="_blank"
+          rel="noopener sponsored"
+          data-deal-btn
+          data-code={deal.code}
+        >Copy code &amp; save</a>
+      </div>
+      <p class="buynow-note">Code auto-copied on click — paste it at Amazon checkout under “Gift cards &amp; promotional codes”.</p>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .review { max-width: 760px; padding-top: 40px; padding-bottom: 30px; }
+  .crumb { font-size: 13.5px; text-decoration: none; font-weight: 600; }
+
+  .review h1 { margin: 14px 0 4px; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; }
+  .subtitle { margin: 0 0 24px; color: var(--muted); font-size: 15px; }
+
+  /* 结论框 */
+  .verdict {
+    display: flex; gap: 20px; align-items: center;
+    background: linear-gradient(135deg, #eef4ff 0%, #ffffff 80%);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .verdict-score { display: flex; align-items: baseline; flex-shrink: 0; }
+  .score-num { font-size: 42px; font-weight: 800; color: var(--blue); line-height: 1; }
+  .score-of { font-size: 15px; color: var(--muted); font-weight: 600; }
+  .verdict-text { margin: 0; font-size: 15.5px; line-height: 1.65; color: #1f2937; }
+
+  /* Best for / Skip if */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; }
+  .split-card { border-radius: 14px; padding: 18px 20px; border: 1px solid var(--border); }
+  .split-card.best { background: #f0fdf4; border-color: #bbf7d0; }
+  .split-card.skip { background: #fef2f2; border-color: #fecaca; }
+  .split-title { margin: 0 0 10px; font-size: 15.5px; font-weight: 800; }
+  .best .split-title { color: #15803d; }
+  .skip .split-title { color: #b91c1c; }
+  .split-card ul { margin: 0; padding-left: 18px; }
+  .split-card li { font-size: 14px; line-height: 1.6; color: #1f2937; margin-bottom: 7px; }
+  .split-card li:last-child { margin-bottom: 0; }
+
+  /* 规格表 */
+  .specs { width: 100%; border-collapse: collapse; margin-top: 26px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .specs tr:nth-child(odd) { background: #f8fafc; }
+  .specs td { padding: 10px 16px; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .specs td:first-child { font-weight: 700; width: 180px; color: var(--muted); }
+
+  /* 正文 */
+  .body-text { margin-top: 30px; }
+  .body-text h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.3px; margin: 26px 0 10px; }
+  .body-text p { margin: 0; font-size: 15.5px; line-height: 1.75; color: #1f2937; }
+
+  /* 去哪买 */
+  .buynow { margin-top: 36px; }
+  .buynow-title { margin: 0 0 12px; font-size: 17px; font-weight: 800; }
+  .buynow-card {
+    display: flex; align-items: center; gap: 18px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.07);
+    flex-wrap: wrap;
+  }
+  .buynow-card img { width: 92px; height: 92px; object-fit: contain; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+  .buynow-info { flex: 1; min-width: 220px; }
+  .buynow-name { margin: 0 0 6px; font-size: 14px; font-weight: 700; }
+  .buynow-price-row { margin: 0 0 8px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .buynow-price { font-size: 24px; font-weight: 800; }
+  .buynow-list { font-size: 14px; color: var(--muted); text-decoration: line-through; }
+  .buynow-save { font-size: 12px; font-weight: 700; color: var(--yellow-ink); background: var(--yellow-bg); padding: 2px 8px; border-radius: 6px; }
+  .buynow-code {
+    font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--orange); background: var(--orange-soft);
+    border: 1.5px dashed var(--orange);
+    border-radius: 8px; padding: 3px 10px;
+    font-size: 13.5px; font-weight: 700;
+    margin-right: 8px;
+  }
+  .buynow-exp { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+  .buynow-btn {
+    background: var(--blue); color: #fff;
+    border-radius: 10px; padding: 13px 22px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .buynow-btn:hover { background: var(--blue-dark); }
+  .buynow-note { margin: 10px 0 0; font-size: 12.5px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .review h1 { font-size: 25px; }
+    .verdict { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .split { grid-template-columns: 1fr; }
+    .buynow-btn { width: 100%; text-align: center; }
+  }
+</style>

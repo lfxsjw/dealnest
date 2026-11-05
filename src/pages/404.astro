@@ -1,0 +1,29 @@
+---
+// 404 页面：用户访问不存在的网址时看到的友好提示（Cloudflare Pages 会自动用它）
+import Base from '../layouts/Base.astro';
+import config from '../data/config.json';
+
+const { siteName } = config;
+---
+<Base title={`Page not found — ${siteName}`} description="This page doesn't exist. Head back to today's Amazon deals.">
+  <main class="wrap nf">
+    <p class="nf-code">404</p>
+    <h1>That page walked off the shelf</h1>
+    <p class="nf-sub">The link is broken or the deal was removed. The good news: today's deals are one click away.</p>
+    <a class="nf-btn" href="/">← Back to today's deals</a>
+  </main>
+</Base>
+
+<style>
+  .nf { max-width: 560px; text-align: center; padding: 90px 20px 40px; }
+  .nf-code { margin: 0; font-size: 15px; font-weight: 700; color: var(--blue); letter-spacing: 2px; }
+  .nf h1 { margin: 6px 0 12px; font-size: 30px; font-weight: 800; letter-spacing: -0.4px; }
+  .nf-sub { margin: 0 0 28px; color: var(--muted); font-size: 15.5px; }
+  .nf-btn {
+    display: inline-block;
+    background: var(--blue); color: #fff;
+    padding: 12px 22px; border-radius: 10px;
+    font-weight: 700; font-size: 15px; text-decoration: none;
+  }
+  .nf-btn:hover { background: var(--blue-dark); }
+</style>

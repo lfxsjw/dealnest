@@ -1,0 +1,193 @@
+---
+// 全局布局：每个页面共用（顶栏 + 页脚 + 提示条 + 复制优惠码的脚本）
+import config from '../data/config.json';
+
+const { siteName } = config;
+const { title = `${siteName} — Amazon Deals & Promo Codes`, description = 'Hand-picked Amazon deals with promo codes that actually work. Copy the code, click the button, save at checkout.' } = Astro.props;
+
+// canonical（规范网址）：告诉搜索引擎这是页面的唯一正式地址，避免重复收录
+// 基于 astro.config.mjs 里的 site 配置 + 当前页面路径拼出来
+const site = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
+const canonical = `${site}${Astro.url.pathname}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <!-- 社交分享卡片（Open Graph）：链接分享到社交媒体/聊天工具时显示标题和描述 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <!-- 顶栏：logo + 更新徽章 + 隐私页入口 -->
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="logo" href="/">
+        <svg viewBox="0 0 64 64" width="26" height="26" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1e66f5"/><text x="32" y="43" font-family="Arial" font-size="36" font-weight="bold" fill="#fff" text-anchor="middle">%</text></svg>
+        <span>{siteName}</span>
+      </a>
+      <nav class="topnav">
+        <span class="badge-dot">Updated daily</span>
+        <a href="/privacy/">Privacy &amp; Disclosure</a>
+      </nav>
+    </div>
+  </header>
+
+  <slot />
+
+  <!-- 页脚：联盟披露（美国 FTC 法律要求）+ 免责声明 -->
+  <footer class="footer">
+    <div class="wrap footer-in">
+      <p class="disclose">
+        <strong>Disclosure:</strong> As an Amazon Associate, {siteName} earns from qualifying purchases.
+        Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
+      </p>
+      <p class="muted">
+        Promo codes are provided by sellers and may expire or be usage-limited without notice.
+        Always check the final price at Amazon checkout before ordering.
+      </p>
+      <p class="muted">© {new Date().getFullYear()} {siteName} · <a href="/privacy/">Privacy &amp; Disclosure</a></p>
+    </div>
+  </footer>
+
+  <!-- 复制成功的浮动提示条 -->
+  <div id="toast" class="toast" hidden></div>
+
+  <script>
+    // ===== 复制优惠码 + 跳转亚马逊（全站通用脚本）=====
+    // 原理：点带码商品的按钮时，先把优惠码写进剪贴板，提示用户，再打开 /go/ 链接（那边 302 跳亚马逊）
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { toastEl.hidden = true; }, 2600);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (e) {
+        // 兼容旧浏览器的备用方案：造一个看不见的输入框，选中后执行复制
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          return true;
+        } catch (e2) {
+          return false;
+        } finally {
+          ta.remove();
+        }
+      }
+    }
+
+    // 事件委托：页面上所有 [data-deal-btn] 按钮共用这一个监听器
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-deal-btn]');
+      if (!btn) return;
+      const code = btn.dataset.code;
+      if (!code) return; // 没码的按钮走默认行为，直接开链接
+
+      e.preventDefault(); // 先别急着跳，复制完再跳
+      copyText(code).then((ok) => {
+        toast(ok
+          ? `Code ${code} copied — opening Amazon…`
+          : `Couldn't auto-copy — jot down the code: ${code}`);
+        // 停 0.6 秒让用户看到提示，再开新标签页
+        setTimeout(() => window.open(btn.href, '_blank', 'noopener'), 600);
+      });
+    });
+  </script>
+
+  <style is:global>
+    /* ===== 全站样式变量：想换配色改这里 ===== */
+    :root {
+      --blue: #1e66f5;        /* 主按钮蓝 */
+      --blue-dark: #1a54c9;   /* 按钮悬停深蓝 */
+      --ink: #111827;         /* 主文字（近黑） */
+      --muted: #6b7280;       /* 次要文字（灰） */
+      --yellow-bg: #fef3c7;   /* 黄色高亮底 */
+      --yellow-ink: #92400e;  /* 黄色高亮字 */
+      --orange: #ea580c;      /* 优惠码橙 */
+      --orange-soft: #fff7ed; /* 优惠码浅橙底 */
+      --border: #e5e7eb;      /* 边框灰 */
+      --bg: #f8fafc;          /* 页面底色 */
+      --card: #ffffff;        /* 卡片白 */
+      --star: #f59e0b;        /* 评星金 */
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    a { color: var(--blue); }
+
+    /* ===== 顶栏 ===== */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-in { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo {
+      display: flex; align-items: center; gap: 9px;
+      font-weight: 800; font-size: 20px; letter-spacing: -0.3px;
+      color: var(--ink); text-decoration: none;
+    }
+    .topnav { display: flex; align-items: center; gap: 16px; font-size: 14px; }
+    .topnav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .topnav a:hover { color: var(--ink); }
+    .badge-dot {
+      color: #15803d; background: #dcfce7; border-radius: 999px;
+      padding: 3px 10px; font-size: 12px; font-weight: 600; white-space: nowrap;
+    }
+
+    /* ===== 提示条 ===== */
+    .toast {
+      position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+      background: var(--ink); color: #fff;
+      padding: 11px 20px; border-radius: 999px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      z-index: 100; max-width: 90vw; text-align: center;
+    }
+
+    /* ===== 页脚 ===== */
+    .footer { border-top: 1px solid var(--border); background: #fff; margin-top: 64px; }
+    .footer-in { padding: 36px 20px 44px; font-size: 13px; }
+    .footer-in p { margin: 0 0 10px; }
+    .disclose { color: var(--ink); }
+    .muted { color: var(--muted); }
+
+    @media (max-width: 640px) {
+      .badge-dot { display: none; }
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# 不上传到 GitHub 的文件（为什么：依赖可重装、构建产物由 Cloudflare 自动生成，都不用进仓库）
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log

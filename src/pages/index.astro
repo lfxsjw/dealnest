@@ -1,0 +1,497 @@
+---
+// 首页：口号 + 统计背书 + 今日最优码精选卡 + 搜索 + 分类 + 优惠卡片 + 侧栏排行榜
+import Base from '../layouts/Base.astro';
+import DealCard from '../components/DealCard.astro';
+import dealsData from '../data/deals.json';
+
+const all = dealsData.deals;
+const featured = all.filter((d) => d.featured);
+const evergreen = all.filter((d) => !d.featured);
+
+// Hero 右侧的"今日最优优惠码"：默认取限时优惠区的第一个，想换卡就调整它在 deals.json 里的顺序
+const heroDeal = featured[0];
+const heroSave = heroDeal.listPrice ? heroDeal.listPrice - heroDeal.price : 0;
+
+// 侧栏排行榜：按评论数降序取前 6（自动跟着 deals.json 变）
+const topReviewed = [...all]
+  .filter((d) => typeof d.reviews === 'number')
+  .sort((a, b) => b.reviews - a.reviews)
+  .slice(0, 6);
+
+// 统计数字：自动算，不撒谎
+const dealCount = all.length;
+const guideCount = 1; // 现有评测文章数（加了新评测页记得 +1）
+
+// 评论数格式化
+function fmtReviews(n) {
+  if (n >= 1000) {
+    const v = (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '');
+    return v + 'k';
+  }
+  return String(n);
+}
+
+// 分类入口（chips）：想加分类在这里加一项，deals.json 里对应 category 也用同名
+const categories = [
+  { slug: 'all', label: 'All deals' },
+  { slug: 'photo-printers', label: 'Photo Printers' },
+  { slug: 'kitchen', label: 'Kitchen' },
+  { slug: 'home', label: 'Home' },
+  { slug: 'office', label: 'Office & Desk' },
+];
+---
+<Base>
+  <main>
+  <!-- ===== 口号区：深蓝大横幅（左口号 + 右今日最优码） ===== -->
+  <section class="hero">
+    <div class="wrap hero-in">
+      <!-- 左：口号 + 搜索 + 分类 -->
+      <div class="hero-left">
+        <p class="hero-stat">{dealCount} deals tracked · {guideCount} buying guide</p>
+        <h1>Amazon deals that <span class="hl">actually</span> save you money</h1>
+        <p class="sub">Hand-picked price drops and promo codes — copy the code, click the button, watch the total drop at checkout.</p>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Search deals — try “air fryer” or “Liene”…" autocomplete="off" />
+        </div>
+
+        <!-- 分类入口 -->
+        <div class="chips" id="chips">
+          {categories.map((c) => (
+            <button class="chip" data-cat={c.slug} class:list={{ active: c.slug === 'all' }}>{c.label}</button>
+          ))}
+        </div>
+      </div>
+
+      <!-- 右：今日最优码精选卡 -->
+      <div class="hero-card">
+        <p class="hero-card-tag">⭐ Today's top code</p>
+        <a class="hero-card-in" href={`/go/${heroDeal.id}`} target="_blank" rel="noopener sponsored" data-deal-btn data-code={heroDeal.code}>
+          <img class="hero-card-img" src={heroDeal.image} alt={heroDeal.title} width="88" height="88" />
+          <div class="hero-card-body">
+            <p class="hero-card-brand">{heroDeal.brand}</p>
+            <p class="hero-card-title">{heroDeal.title}</p>
+            <p class="hero-card-price-row">
+              <span class="hero-card-price">${heroDeal.price.toFixed(2)}</span>
+              {heroDeal.listPrice && <span class="hero-card-list">${heroDeal.listPrice.toFixed(2)}</span>}
+              {heroDeal.listPrice && <span class="hero-card-save">save ${heroSave.toFixed(0)}</span>}
+            </p>
+          </div>
+        </a>
+        <div class="hero-card-foot">
+          <span class="hero-code">{heroDeal.code}</span>
+          <span class="hero-code-exp">to {heroDeal.expires}</span>
+          <span class="hero-card-hint">click copies the code</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 信任背书区：全站自己的话，不讲套话 ===== -->
+  <section class="trust">
+    <div class="wrap trust-grid">
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <div>
+          <p class="trust-t">Straight to the source</p>
+          <p class="trust-d">Buttons open the exact Amazon product page — no detours, no mystery middle pages.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <div>
+          <p class="trust-t">Honest numbers</p>
+          <p class="trust-d">Prices and star ratings pulled from Amazon listings — dated, not guessed.</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✓</span>
+        <div>
+          <p class="trust-t">Zero fake urgency</p>
+          <p class="trust-d">Only codes the brands actually publish. No fake countdowns, no pressure tricks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 主体双列：左卡片流 + 右侧栏 ===== -->
+  <div class="wrap home-cols">
+    <div class="home-main">
+      <!-- 区块一：限时优惠码 -->
+      <section class="section" id="section-featured">
+        <div class="section-head">
+          <h2>🎟 Codes live right now</h2>
+          <span class="section-note">Codes expire — use them before the date shown</span>
+        </div>
+        <div class="grid">
+          {featured.map((deal) => <DealCard deal={deal} />)}
+        </div>
+      </section>
+
+      <!-- 区块二：常青热门 -->
+      <section class="section" id="section-evergreen">
+        <div class="section-head">
+          <h2>🔥 Trending on Amazon</h2>
+          <span class="section-note">No code needed — solid prices on proven gear</span>
+        </div>
+        <div class="grid">
+          {evergreen.map((deal) => <DealCard deal={deal} />)}
+        </div>
+      </section>
+
+      <!-- 搜索/过滤无结果时的提示 -->
+      <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
+    </div>
+
+    <!-- 侧栏：排行榜 + 评测入口（宽屏显示在右侧，手机移到底部） -->
+    <aside class="side">
+      <div class="side-box">
+        <h3 class="side-title">Most-loved on Amazon</h3>
+        <ol class="rank">
+          {topReviewed.map((d, i) => (
+            <li>
+              <a class="rank-item" href={`/go/${d.id}`} target="_blank" rel="noopener sponsored">
+                <span class="rank-num">{i + 1}</span>
+                <span class="rank-name">{d.title}</span>
+                <span class="rank-meta">${d.price?.toFixed(2)} · {d.rating} ({fmtReviews(d.reviews)})</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="side-box">
+        <h3 class="side-title">Worth a read</h3>
+        <a class="guide-card" href="/review/pearl-n200-pro/">
+          <span class="guide-tag">The pocket printer to beat</span>
+          <span class="guide-name">Liene Pearl N200 Pro</span>
+          <span class="guide-meta">Full review — verdict, specs, who should skip →</span>
+        </a>
+        <p class="side-more">More guides on the way.</p>
+      </div>
+    </aside>
+  </div>
+  </main>
+</Base>
+
+<script>
+  // ===== 搜索 + 分类过滤（纯前端，输入即时生效，不用刷新）=====
+  const state = { q: '', cat: 'all' };
+  const input = document.getElementById('search');
+  const chips = document.getElementById('chips');
+  const emptyEl = document.getElementById('empty');
+
+  function applyFilter() {
+    let visible = 0;
+    document.querySelectorAll('[data-deal-card]').forEach((card) => {
+      const matchCat = state.cat === 'all' || card.dataset.category === state.cat;
+      const hay = card.dataset.search || '';
+      const matchQ = !state.q || hay.includes(state.q);
+      const show = matchCat && matchQ;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+
+    // 某个区块如果全空了，把区块标题也藏起来
+    document.querySelectorAll('.section').forEach((sec) => {
+      const cards = sec.querySelectorAll('[data-deal-card]');
+      const anyVisible = [...cards].some((c) => c.style.display !== 'none');
+      sec.hidden = !anyVisible;
+    });
+
+    emptyEl.hidden = visible > 0;
+  }
+
+  input?.addEventListener('input', () => {
+    state.q = input.value.trim().toLowerCase();
+    applyFilter();
+  });
+
+  chips?.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    state.cat = chip.dataset.cat;
+    chips.querySelectorAll('.chip').forEach((c) => c.classList.toggle('active', c === chip));
+    applyFilter();
+  });
+</script>
+
+<style>
+  /* ===== 口号区：深蓝大横幅，双栏（左文字 + 右精选卡） ===== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d2f6e 0%, #1e66f5 100%);
+    padding: 56px 0 64px;
+    border-radius: 0 0 26px 26px;
+    box-shadow: 0 12px 40px rgba(13, 47, 110, 0.25);
+  }
+  /* 装饰光斑 */
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    width: 420px; height: 420px;
+    background: rgba(255, 255, 255, 0.06);
+    top: -180px; right: -120px;
+  }
+  .hero::after {
+    width: 280px; height: 280px;
+    background: rgba(255, 255, 255, 0.05);
+    bottom: -120px; left: -90px;
+  }
+  .hero-in {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 44px;
+    align-items: center;
+  }
+  .hero-left { text-align: left; }
+
+  .hero-stat {
+    margin: 0 0 10px;
+    display: inline-block;
+    font-size: 12.5px; font-weight: 700;
+    color: #fde047;
+    background: rgba(253, 224, 71, 0.14);
+    border: 1px solid rgba(253, 224, 71, 0.4);
+    padding: 4px 12px; border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .hero h1 {
+    margin: 0 0 14px;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    line-height: 1.14;
+    color: #fff;
+  }
+  /* 荧光笔高亮 */
+  .hl {
+    background: linear-gradient(180deg, transparent 60%, #fde047 60%);
+    padding: 0 3px;
+  }
+  .sub { margin: 0 0 24px; color: rgba(255, 255, 255, 0.85); font-size: 16px; max-width: 520px; line-height: 1.6; }
+
+  /* ===== 搜索框 ===== */
+  .search-box {
+    display: flex; align-items: center; gap: 10px;
+    max-width: 460px;
+    background: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 13px 20px;
+    box-shadow: 0 10px 30px rgba(4, 20, 54, 0.35);
+    color: var(--muted);
+    transition: box-shadow 0.15s ease;
+  }
+  .search-box:focus-within { box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.55), 0 10px 30px rgba(4, 20, 54, 0.35); }
+  .search-box input {
+    border: none; outline: none; flex: 1;
+    font-size: 15px; font-family: inherit; color: var(--ink);
+    background: transparent;
+  }
+  .search-box input::placeholder { color: #9ca3af; }
+
+  /* ===== 分类 chips ===== */
+  .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
+  .chip {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    backdrop-filter: blur(4px);
+    transition: background 0.13s ease;
+  }
+  .chip:hover { background: rgba(255, 255, 255, 0.24); }
+  .chip.active { background: #fff; border-color: #fff; color: #1e66f5; font-weight: 700; }
+
+  /* ===== 今日最优码精选卡（hero 右侧白卡） ===== */
+  .hero-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 18px 50px rgba(4, 20, 54, 0.4);
+    max-width: 360px;
+    justify-self: end;
+    width: 100%;
+  }
+  .hero-card-tag {
+    margin: 0 0 12px;
+    font-size: 12px; font-weight: 800;
+    color: var(--yellow-ink);
+    background: var(--yellow-bg);
+    display: inline-block;
+    padding: 4px 11px; border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .hero-card-in { display: flex; gap: 14px; text-decoration: none; color: var(--ink); align-items: center; }
+  .hero-card-img {
+    width: 88px; height: 88px;
+    object-fit: contain;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .hero-card-brand { margin: 0; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  .hero-card-title {
+    margin: 2px 0 6px;
+    font-size: 14.5px; font-weight: 700; line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .hero-card-price-row { margin: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .hero-card-price { font-size: 21px; font-weight: 800; }
+  .hero-card-list { font-size: 13px; color: var(--muted); text-decoration: line-through; }
+  .hero-card-save {
+    font-size: 11.5px; font-weight: 700;
+    color: var(--yellow-ink); background: var(--yellow-bg);
+    padding: 2px 7px; border-radius: 5px;
+  }
+  .hero-card-foot {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .hero-code {
+    font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--orange);
+    background: var(--orange-soft);
+    border: 1.5px dashed var(--orange);
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-size: 13px; font-weight: 700;
+  }
+  .hero-code-exp { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .hero-card-hint { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+  /* ===== 信任背书区 ===== */
+  .trust { padding: 26px 0 6px; }
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .trust-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .trust-icon {
+    width: 22px; height: 22px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #dcfce7; color: #15803d;
+    border-radius: 50%;
+    font-size: 13px; font-weight: 800;
+    margin-top: 1px;
+  }
+  .trust-t { margin: 0; font-size: 14px; font-weight: 700; }
+  .trust-d { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+
+  /* ===== 主体双列：左卡片 + 右侧栏 ===== */
+  .home-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 36px;
+    align-items: start;
+    padding-top: 30px;
+  }
+  .side { position: sticky; top: 84px; }
+  .side-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .side-title { margin: 0 0 12px; font-size: 15px; font-weight: 800; letter-spacing: -0.2px; }
+
+  /* 排行榜 */
+  .rank { margin: 0; padding: 0; list-style: none; counter-reset: none; }
+  .rank li + li { border-top: 1px solid var(--border); }
+  .rank-item {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    grid-template-rows: auto auto;
+    gap: 1px 8px;
+    padding: 10px 4px;
+    text-decoration: none;
+  }
+  .rank-num {
+    grid-row: 1 / 3;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--yellow-bg); color: var(--yellow-ink);
+    border-radius: 6px;
+    font-size: 12px; font-weight: 800;
+  }
+  .rank-name {
+    font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .rank-meta { font-size: 12px; color: var(--muted); }
+
+  /* 评测导购入口卡 */
+  .guide-card {
+    display: flex; flex-direction: column; gap: 4px;
+    text-decoration: none;
+    background: linear-gradient(135deg, #eef4ff 0%, #ffffff 70%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: border-color 0.13s ease;
+  }
+  .guide-card:hover { border-color: var(--blue); }
+  .guide-tag {
+    align-self: flex-start;
+    font-size: 11px; font-weight: 800;
+    color: #1e66f5; background: #e0ecff;
+    padding: 3px 8px; border-radius: 999px;
+  }
+  .guide-name { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+  .guide-meta { font-size: 12px; color: var(--muted); }
+  .side-more { margin: 10px 0 0; font-size: 12px; color: var(--muted); text-align: center; }
+
+  /* ===== 区块 ===== */
+  .section { margin-top: 30px; }
+  .section:first-child { margin-top: 0; }
+  .section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .section-head h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+  .section-note { font-size: 13px; color: var(--muted); }
+
+  /* ===== 卡片网格 ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+
+  .empty { text-align: center; color: var(--muted); padding: 48px 0; font-size: 15px; }
+
+  /* ===== 响应式：中屏收起侧栏，小屏单列 ===== */
+  @media (max-width: 1020px) {
+    .home-cols { grid-template-columns: 1fr; }
+    .side { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .side-box { margin-bottom: 0; }
+  }
+  @media (max-width: 640px) {
+    .hero { padding: 36px 0 44px; border-radius: 0 0 18px 18px; }
+    .hero-in { grid-template-columns: 1fr; gap: 26px; }
+    .hero-card { justify-self: start; max-width: 100%; }
+    .hero h1 { font-size: 27px; }
+    .sub { font-size: 14.5px; max-width: 320px; }
+    .search-box { max-width: 100%; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .side { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .section { margin-top: 26px; }
+  }
+</style>
