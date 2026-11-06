@@ -8,13 +8,14 @@ import config from '../../src/data/config.json';
 
 export function onRequest(context) {
   // 从路径取出商品编号，比如 /go/pw-b0g6d3tntj 里的 "pw-b0g6d3tntj"
-  const slug = context.params.slug;
+  // 兼容两种格式：单段路由传字符串，catch-all 路由传数组（取第一段）
+  const raw = context.params.slug;
+  const slug = Array.isArray(raw) ? raw[0] : raw;
   const deal = deals.deals.find((d) => d.id === slug);
 
-  // 找不到商品：返回 404（调试期附带现场信息，稳定后删除 paramsDump）
+  // 找不到商品：返回 404
   if (!deal) {
-    const paramsDump = JSON.stringify({ slug, params: context.params, dealCount: deals.deals.length, url: context.request.url });
-    return new Response('Deal not found ' + paramsDump, { status: 404 });
+    return new Response('Deal not found', { status: 404 });
   }
 
   // 跳转目标两级策略：
