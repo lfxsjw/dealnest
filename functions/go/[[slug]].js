@@ -2,8 +2,9 @@
 // 作用：用户点按钮 → 打开 /go/pw-xxx → 这里瞬间 302 跳转到亚马逊（自动带上你的联盟 tag）
 // 好处：① 换 tag 只改 config.json 一处 ② 以后想统计点击数，在这一个文件里加计数逻辑就行
 // 注意：这个文件只在部署到 Cloudflare Pages 后生效，本地预览时 /go/ 是 404 属正常现象
-import deals from '../../src/data/deals.json' with { type: 'json' };
-import config from '../../src/data/config.json' with { type: 'json' };
+// 注意：JSON 导入不能带 with 语法（Cloudflare 的打包器不支持），esbuild 打包时自动内联
+import deals from '../../src/data/deals.json';
+import config from '../../src/data/config.json';
 
 export function onRequest(context) {
   // 从路径取出商品编号，比如 /go/pw-b0g6d3tntj 里的 "pw-b0g6d3tntj"
