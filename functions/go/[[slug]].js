@@ -11,9 +11,10 @@ export function onRequest(context) {
   const slug = context.params.slug;
   const deal = deals.deals.find((d) => d.id === slug);
 
-  // 找不到商品：返回 404
+  // 找不到商品：返回 404（调试期附带现场信息，稳定后删除 paramsDump）
   if (!deal) {
-    return new Response('Deal not found', { status: 404 });
+    const paramsDump = JSON.stringify({ slug, params: context.params, dealCount: deals.deals.length, url: context.request.url });
+    return new Response('Deal not found ' + paramsDump, { status: 404 });
   }
 
   // 跳转目标两级策略：
