@@ -1,5 +1,5 @@
 {
-  "_说明": "商品数据文件。加一个商品 = 复制一段花括号块改字段；删商品 = 删掉整段。字段含义见下：id=站内编号（不重复即可，链接 /go/xxx 用它）；asin=亚马逊商品编号（商品详情页 URL 里那串大写字母数字，用 trackingUrl 时可不填）；trackingUrl=第三方联盟平台（如 PartnerBoost）拿到的专属推广链接，有它就优先跳它、佣金走该平台，没有就自动用亚马逊官方联盟链接；brand=品牌；title=商品标题；variant=颜色/规格；image=商品图（直接贴亚马逊图床 m.media-amazon.com 的图片网址）；price=现价（店铺卡可以不填，填 null）；listPrice=原价/划线价（没有就删掉这行）；code=优惠码（没有就写 null，按钮自动降级为 View on Amazon）；expires=优惠码有效期；rating=评分（满分5，店铺卡可不填）；reviews=评论数；category=分类（photo-printers / kitchen / home / office 四选一）；featured=true 放顶部优惠码区，false 放底部常青区；description=商品一句话介绍。",
+  "_说明": "商品数据文件。加一个商品 = 复制一段花括号块改字段；删商品 = 删掉整段。字段含义见下：id=站内编号（不重复即可，链接 /go/xxx 用它）；asin=亚马逊商品编号（商品详情页 URL 里那串大写字母数字，用 trackingUrl 时可不填）；trackingUrl=第三方联盟平台（如 PartnerBoost）拿到的专属推广链接，有它就优先跳它、佣金走该平台，没有就自动用亚马逊官方联盟链接；brand=品牌；title=商品标题；variant=颜色/规格；image=商品图（直接贴亚马逊图床 m.media-amazon.com 的图片网址）；price=现价（店铺卡可以不填，填 null）；listPrice=原价/划线价（没有就删掉这行）；code=优惠码（没有就写 null，按钮自动降级为 View on Amazon）；expires=优惠码有效期；rating=评分（满分5，店铺卡可不填）；reviews=评论数；category=分类（photo-printers / kitchen / home / office / tech 五选一）；featured=true 放顶部优惠码区，false 放底部常青区；description=商品一句话介绍。",
   "deals": [
     {
       "id": "pb-liene-store",
@@ -85,6 +85,23 @@
       "category": "photo-printers",
       "featured": true,
       "description": "The Pearl N200 Pro bundled with 50 sheets and 5 cartridges — the best value pack for party favors and gifts."
+    },
+    {
+      "id": "pw-b0dcbb2ytr",
+      "asin": "B0DCBB2YTR",
+      "brand": "Anker",
+      "title": "Anker Laptop Power Bank 25,000mAh 165W",
+      "variant": "Black · 3 USB-C · Built-in retractable cables",
+      "image": "https://m.media-amazon.com/images/I/61CF1s8tz1L._AC_SL1500_.jpg",
+      "price": 119.98,
+      "listPrice": 134.99,
+      "code": null,
+      "expires": null,
+      "rating": 4.4,
+      "reviews": 10652,
+      "category": "tech",
+      "featured": false,
+      "description": "165W laptop power bank with built-in retractable USB-C cables — charges a MacBook and a phone at full speed at the same time. Flight-ready."
     },
     {
       "id": "pw-b074zl35dh",
