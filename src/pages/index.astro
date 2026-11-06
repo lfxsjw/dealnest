@@ -8,9 +8,9 @@ const all = dealsData.deals;
 const featured = all.filter((d) => d.featured);
 const evergreen = all.filter((d) => !d.featured);
 
-// Hero 右侧的"今日最优优惠码"：默认取限时优惠区的第一个，想换卡就调整它在 deals.json 里的顺序
-const heroDeal = featured[0];
-const heroSave = heroDeal.listPrice ? heroDeal.listPrice - heroDeal.price : 0;
+// Hero 右侧的"今日最优码"精选卡：默认取限时优惠区的第一个，没有带码商品就整卡隐藏
+const heroDeal = featured[0] || null;
+const heroSave = heroDeal?.listPrice ? heroDeal.listPrice - heroDeal.price : 0;
 
 // 侧栏排行榜：按评论数降序取前 6（自动跟着 deals.json 变）
 const topReviewed = [...all]
@@ -20,7 +20,7 @@ const topReviewed = [...all]
 
 // 统计数字：自动算，不撒谎
 const dealCount = all.length;
-const guideCount = 1; // 现有评测文章数（加了新评测页记得 +1）
+const guideCount = 0; // 现有评测文章数（加了新评测页记得 +1）
 
 // 评论数格式化
 function fmtReviews(n) {
@@ -45,10 +45,10 @@ const categories = [
   <main>
   <!-- ===== 口号区：深蓝大横幅（左口号 + 右今日最优码） ===== -->
   <section class="hero">
-    <div class="wrap hero-in">
+    <div class="wrap hero-in" class:list={{ single: !heroDeal }}>
       <!-- 左：口号 + 搜索 + 分类 -->
       <div class="hero-left">
-        <p class="hero-stat">{dealCount} deals tracked · {guideCount} buying guide</p>
+        <p class="hero-stat">{guideCount > 0 ? `${dealCount} deals tracked · ${guideCount} buying guide` : `${dealCount} deals tracked`}</p>
         <h1>Amazon deals that <span class="hl">actually</span> save you money</h1>
         <p class="sub">Hand-picked price drops and promo codes — copy the code, click the button, watch the total drop at checkout.</p>
         <div class="search-box">
@@ -64,7 +64,8 @@ const categories = [
         </div>
       </div>
 
-      <!-- 右：今日最优码精选卡 -->
+      <!-- 右：今日最优码精选卡（没有带码商品时整卡隐藏，hero 自动变单栏） -->
+      {heroDeal && (
       <div class="hero-card">
         <p class="hero-card-tag">⭐ Today's top code</p>
         <a class="hero-card-in" href={`/go/${heroDeal.id}`} target="_blank" rel="noopener sponsored" data-deal-btn data-code={heroDeal.code}>
@@ -85,6 +86,7 @@ const categories = [
           <span class="hero-card-hint">click copies the code</span>
         </div>
       </div>
+      )}
     </div>
   </section>
 
@@ -118,7 +120,8 @@ const categories = [
   <!-- ===== 主体双列：左卡片流 + 右侧栏 ===== -->
   <div class="wrap home-cols">
     <div class="home-main">
-      <!-- 区块一：限时优惠码 -->
+      <!-- 区块一：限时优惠码（没有带码商品时整个区块隐藏） -->
+      {featured.length > 0 && (
       <section class="section" id="section-featured">
         <div class="section-head">
           <h2>🎟 Codes live right now</h2>
@@ -128,6 +131,7 @@ const categories = [
           {featured.map((deal) => <DealCard deal={deal} />)}
         </div>
       </section>
+      )}
 
       <!-- 区块二：常青热门 -->
       <section class="section" id="section-evergreen">
@@ -144,7 +148,7 @@ const categories = [
       <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
     </div>
 
-    <!-- 侧栏：排行榜 + 评测入口（宽屏显示在右侧，手机移到底部） -->
+    <!-- 侧栏：排行榜 + 评测入口（宽屏显示在右侧，手机移到底部；没有评测文章时隐藏评测入口） -->
     <aside class="side">
       <div class="side-box">
         <h3 class="side-title">Most-loved on Amazon</h3>
@@ -161,6 +165,7 @@ const categories = [
         </ol>
       </div>
 
+      {guideCount > 0 && (
       <div class="side-box">
         <h3 class="side-title">Worth a read</h3>
         <a class="guide-card" href="/review/pearl-n200-pro/">
@@ -170,6 +175,7 @@ const categories = [
         </a>
         <p class="side-more">More guides on the way.</p>
       </div>
+      )}
     </aside>
   </div>
   </main>
@@ -252,6 +258,11 @@ const categories = [
     gap: 44px;
     align-items: center;
   }
+  /* 没有带码商品时，hero 自动退回单栏居中 */
+  .hero-in.single { grid-template-columns: 1fr; }
+  .hero-in.single .hero-left { text-align: center; }
+  .hero-in.single .hero-left .search-box { margin: 0 auto; }
+  .hero-in.single .chips { justify-content: center; }
   .hero-left { text-align: left; }
 
   .hero-stat {
