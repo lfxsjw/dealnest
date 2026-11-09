@@ -157,9 +157,10 @@ const inAmazon = path.startsWith('/amazon');
     /* ===== 顶栏 ===== */
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(255, 255, 255, 0.92);
+      /* 淡蓝渐变顶栏：与下方深蓝横幅形成"浅蓝 → 深蓝"的过渡 */
+      background: linear-gradient(180deg, #f6f9ff 0%, #e7effc 100%);
       backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #d9e4f7;
     }
     .topbar-in { display: flex; align-items: center; justify-content: space-between; height: 60px; }
     .logo {
