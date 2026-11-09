@@ -152,9 +152,27 @@ const sourceLabels = {
   .hero {
     position: relative;
     overflow: hidden;
-    background: linear-gradient(180deg, #f3f6fb 0%, #ffffff 100%);
-    padding: 52px 0 46px;
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #0d2f6e 0%, #1e66f5 100%);
+    padding: 48px 0 54px;
+    border-radius: 0 0 26px 26px;
+    box-shadow: 0 12px 40px rgba(13, 47, 110, 0.25);
+  }
+  .hero::before,
+  .hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    width: 420px; height: 420px;
+    background: rgba(255, 255, 255, 0.06);
+    top: -180px; right: -120px;
+  }
+  .hero::after {
+    width: 280px; height: 280px;
+    background: rgba(255, 255, 255, 0.05);
+    bottom: -120px; left: -90px;
   }
   .hero-in {
     position: relative; z-index: 1;
@@ -173,9 +191,9 @@ const sourceLabels = {
     margin: 0 0 10px;
     display: inline-block;
     font-size: 12.5px; font-weight: 700;
-    color: #1d4ed8;
-    background: #e0ecff;
-    border: 1px solid #bfdbfe;
+    color: #fde047;
+    background: rgba(253, 224, 71, 0.14);
+    border: 1px solid rgba(253, 224, 71, 0.4);
     padding: 4px 12px; border-radius: 999px;
     letter-spacing: 0.02em;
   }
@@ -185,27 +203,26 @@ const sourceLabels = {
     font-weight: 800;
     letter-spacing: -0.6px;
     line-height: 1.18;
-    color: var(--ink);
+    color: #fff;
   }
   .hl {
     background: linear-gradient(180deg, transparent 60%, #fde047 60%);
     padding: 0 3px;
   }
-  .sub { margin: 0 auto 22px; color: var(--muted); font-size: 16px; max-width: 560px; line-height: 1.6; }
+  .sub { margin: 0 auto 22px; color: rgba(255, 255, 255, 0.85); font-size: 16px; max-width: 560px; line-height: 1.6; }
 
   /* ===== 搜索框 ===== */
   .search-box {
     display: flex; align-items: center; gap: 10px;
     max-width: 480px;
     background: #fff;
-    border: 1.5px solid #d7dde8;
     border-radius: 999px;
     padding: 13px 20px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.07);
+    box-shadow: 0 10px 30px rgba(4, 20, 54, 0.35);
     color: var(--muted);
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: box-shadow 0.15s ease;
   }
-  .search-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(30, 102, 245, 0.12); }
+  .search-box:focus-within { box-shadow: 0 0 0 4px rgba(253, 224, 71, 0.55), 0 10px 30px rgba(4, 20, 54, 0.35); }
   .search-box input {
     border: none; outline: none; flex: 1;
     font-size: 15px; font-family: inherit; color: var(--ink);
@@ -217,24 +234,24 @@ const sourceLabels = {
   .section-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
   .section-btn {
     display: inline-block;
-    border: 2px solid #d7dde8;
-    background: #fff;
-    color: var(--blue);
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
     border-radius: 999px;
     padding: 13px 42px;
     font-size: 17px;
     font-weight: 800;
     letter-spacing: 0.01em;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
-    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+    backdrop-filter: blur(4px);
+    transition: background 0.15s ease, transform 0.15s ease;
   }
-  .section-btn:hover { border-color: var(--blue); transform: translateY(-1px); }
+  .section-btn:hover { background: rgba(255, 255, 255, 0.22); transform: translateY(-1px); }
   .section-btn.active {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-    box-shadow: 0 6px 18px rgba(30, 102, 245, 0.35);
+    background: #fff;
+    border-color: #fff;
+    color: #1e66f5;
+    box-shadow: 0 8px 22px rgba(4, 20, 54, 0.35);
   }
 
   /* ===== 信任背书区 ===== */
