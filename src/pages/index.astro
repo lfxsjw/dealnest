@@ -108,7 +108,7 @@ function fmtReviews(n) {
       <!-- 区块一：测评文章 -->
       <section class="section" id="section-reviews">
         <div class="section-head">
-          <h2>📋 Latest reviews</h2>
+          <h2>📋 Product reviews</h2>
           <span class="section-note">Research summaries — every claim labeled by source</span>
         </div>
         <div class="review-list">
@@ -132,8 +132,8 @@ function fmtReviews(n) {
       {featured.length + evergreen.length > 0 && (
       <section class="section" id="section-evergreen">
         <div class="section-head">
-          <h2>🏷 Deals we're tracking</h2>
-          <span class="section-note">Current promos on gear worth a look — prices checked when listed</span>
+          <h2>🔥 Amazon bestsellers</h2>
+          <span class="section-note">Hot items worth a look — prices checked when listed</span>
         </div>
         <div class="grid">
           {featured.map((deal) => <DealCard deal={deal} />)}
@@ -146,37 +146,6 @@ function fmtReviews(n) {
       <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
     </div>
 
-    <!-- 侧栏：文章入口 + 排行榜（宽屏显示在右侧，手机移到底部） -->
-    <aside class="side">
-      {reviews.length > 0 && (
-      <div class="side-box">
-        <h3 class="side-title">Worth a read</h3>
-        {reviews.slice(0, 4).map((r) => (
-          <a class="side-review" href={`/review/${r.id}/`}>
-            <span class="side-review-title">{r.title}</span>
-            <span class="side-review-meta">Updated {r.updated}</span>
-          </a>
-        ))}
-      </div>
-      )}
-
-      {topReviewed.length > 0 && (
-      <div class="side-box">
-        <h3 class="side-title">Most-loved on Amazon</h3>
-        <ol class="rank">
-          {topReviewed.map((d, i) => (
-            <li>
-              <a class="rank-item" href={`/go/${d.id}`} target="_blank" rel="noopener sponsored">
-                <span class="rank-num">{i + 1}</span>
-                <span class="rank-name">{d.title}</span>
-                <span class="rank-meta">${d.price?.toFixed(2)} · {d.rating} ({fmtReviews(d.reviews)})</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-      )}
-    </aside>
   </div>
   </main>
 </Base>
@@ -345,7 +314,7 @@ function fmtReviews(n) {
   /* ===== 主体双列 ===== */
   .home-cols {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: 1fr;
     gap: 36px;
     align-items: start;
     padding-top: 30px;
@@ -446,8 +415,6 @@ function fmtReviews(n) {
   /* ===== 响应式 ===== */
   @media (max-width: 1020px) {
     .home-cols { grid-template-columns: 1fr; }
-    .side { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .side-box { margin-bottom: 0; }
   }
   @media (max-width: 640px) {
     .hero { padding: 36px 0 44px; border-radius: 0 0 18px 18px; }
@@ -455,7 +422,6 @@ function fmtReviews(n) {
     .sub { font-size: 14.5px; max-width: 320px; }
     .search-box { max-width: 100%; }
     .trust-grid { grid-template-columns: 1fr; }
-    .side { grid-template-columns: 1fr; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .section { margin-top: 26px; }
   }
