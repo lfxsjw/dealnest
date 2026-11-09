@@ -20,7 +20,6 @@ const categories = [
 ];
 
 // 统计数字：自动算，不撒谎
-const reviewCount = reviews.length;
 
 
 // 来源标签的显示文案
@@ -40,7 +39,6 @@ const sourceLabels = {
   <section class="hero">
     <div class="wrap hero-in single">
       <div class="hero-left">
-        <p class="hero-stat">{reviewCount} in-depth review{reviewCount === 1 ? '' : 's'}</p>
         <h1>Appliance reviews with nothing invented</h1>
         <p class="sub">We summarize manufacturer specs, named lab tests, and verified buyer feedback for phones, TVs, washers, cameras, and smart home gear — and we label where every claim comes from.</p>
         <div class="search-box">
@@ -187,16 +185,6 @@ const sourceLabels = {
   .hero-in.single .section-nav { justify-content: center; }
   .hero-left { text-align: left; }
 
-  .hero-stat {
-    margin: 0 0 10px;
-    display: inline-block;
-    font-size: 12.5px; font-weight: 700;
-    color: #fde047;
-    background: rgba(253, 224, 71, 0.14);
-    border: 1px solid rgba(253, 224, 71, 0.4);
-    padding: 4px 12px; border-radius: 999px;
-    letter-spacing: 0.02em;
-  }
   .hero h1 {
     margin: 0 0 14px;
     font-size: 34px;
