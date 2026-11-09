@@ -50,10 +50,10 @@ const categories = [
           <input id="search" type="search" placeholder="Search deals — try “camera”, “Anker”, “light”…" autocomplete="off" />
         </div>
 
-        <div class="chips" id="chips">
-          {categories.map((c) => (
-            <button class="chip" data-cat={c.slug} class:list={{ active: c.slug === 'all' }}>{c.label}</button>
-          ))}
+        <!-- 板块导航：两个大按钮（当前板块实底高亮） -->
+        <div class="section-nav">
+          <a class="section-btn" href="/">Reviews</a>
+          <a class="section-btn active" href="/amazon/">Amazon</a>
         </div>
       </div>
     </section>
@@ -109,36 +109,22 @@ const categories = [
 
 <script>
   // ===== 搜索 + 分类过滤 =====
-  const state = { q: '', cat: 'all' };
   const input = document.getElementById('search');
-  const chips = document.getElementById('chips');
   const emptyEl = document.getElementById('empty');
 
   function applyFilter() {
+    const q = input.value.trim().toLowerCase();
     let visible = 0;
     document.querySelectorAll('[data-deal-card]').forEach((card) => {
-      const matchCat = state.cat === 'all' || card.dataset.category === state.cat;
       const hay = card.dataset.search || '';
-      const matchQ = !state.q || hay.includes(state.q);
-      const show = matchCat && matchQ;
+      const show = !q || hay.includes(q);
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
     emptyEl.hidden = visible > 0;
   }
 
-  input?.addEventListener('input', () => {
-    state.q = input.value.trim().toLowerCase();
-    applyFilter();
-  });
-
-  chips?.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip');
-    if (!chip) return;
-    state.cat = chip.dataset.cat;
-    chips.querySelectorAll('.chip').forEach((c) => c.classList.toggle('active', c === chip));
-    applyFilter();
-  });
+  input?.addEventListener('input', applyFilter);
 </script>
 
 <style>
@@ -202,22 +188,29 @@ const categories = [
   }
   .search-box input::placeholder { color: #9ca3af; }
 
-  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
-  .chip {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.12);
+  /* ===== 板块导航：两个大按钮 ===== */
+  .section-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 22px; }
+  .section-btn {
+    display: inline-block;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
     border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
+    padding: 13px 42px;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-decoration: none;
     backdrop-filter: blur(4px);
-    transition: background 0.13s ease;
+    transition: background 0.15s ease, transform 0.15s ease;
   }
-  .chip:hover { background: rgba(255, 255, 255, 0.24); }
-  .chip.active { background: #fff; border-color: #fff; color: #1e66f5; font-weight: 700; }
+  .section-btn:hover { background: rgba(255, 255, 255, 0.22); transform: translateY(-1px); }
+  .section-btn.active {
+    background: #fff;
+    border-color: #fff;
+    color: #1e66f5;
+    box-shadow: 0 8px 22px rgba(4, 20, 54, 0.35);
+  }
 
   /* ===== 主体双列：左商品 + 右侧栏 ===== */
   .home-cols {
