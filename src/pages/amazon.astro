@@ -1,10 +1,27 @@
 ---
-// Amazon 板块：热销商品/优惠列表（导航栏第二个板块）
+// Amazon 板块：热销商品/优惠列表（导航栏第二个板块，带侧栏）
 import Base from '../layouts/Base.astro';
 import DealCard from '../components/DealCard.astro';
 import dealsData from '../data/deals.json';
+import reviewsData from '../data/reviews.json';
 
 const deals = dealsData.deals;
+const reviews = reviewsData.reviews;
+
+// 侧栏排行榜：按评论数降序取前 6（自动跟着 deals.json 变）
+const topReviewed = [...deals]
+  .filter((d) => typeof d.reviews === 'number')
+  .sort((a, b) => b.reviews - a.reviews)
+  .slice(0, 6);
+
+// 评论数格式化：4600 → 4.6k
+function fmtReviews(n) {
+  if (n >= 1000) {
+    const v = (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '');
+    return v + 'k';
+  }
+  return String(n);
+}
 
 // 分类入口：和测评板块保持同一套 slug
 const categories = [
@@ -41,17 +58,51 @@ const categories = [
       </div>
     </section>
 
-    <div class="wrap">
-      <section class="section" id="section-deals">
-        <div class="section-head">
-          <h2>🔥 {deals.length} items we're watching</h2>
-          <span class="section-note">Sorted as listed — newest finds first</span>
+    <div class="wrap home-cols">
+      <div class="home-main">
+        <section class="section" id="section-deals">
+          <div class="section-head">
+            <h2>🔥 {deals.length} items we're watching</h2>
+            <span class="section-note">Sorted as listed — newest finds first</span>
+          </div>
+          <div class="grid">
+            {deals.map((deal) => <DealCard deal={deal} />)}
+          </div>
+          <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
+        </section>
+      </div>
+
+      <!-- 侧栏：商品排行榜 + 测评文章入口 -->
+      <aside class="side">
+        {topReviewed.length > 0 && (
+        <div class="side-box">
+          <h3 class="side-title">Most-loved on Amazon</h3>
+          <ol class="rank">
+            {topReviewed.map((d, i) => (
+              <li>
+                <a class="rank-item" href={`/go/${d.id}`} target="_blank" rel="noopener sponsored">
+                  <span class="rank-num">{i + 1}</span>
+                  <span class="rank-name">{d.title}</span>
+                  <span class="rank-meta">${d.price?.toFixed(2)} · {d.rating} ({fmtReviews(d.reviews)})</span>
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
-        <div class="grid">
-          {deals.map((deal) => <DealCard deal={deal} />)}
+        )}
+
+        {reviews.length > 0 && (
+        <div class="side-box">
+          <h3 class="side-title">Worth a read</h3>
+          {reviews.slice(0, 4).map((r) => (
+            <a class="side-review" href={`/review/${r.id}/`}>
+              <span class="side-review-title">{r.title}</span>
+              <span class="side-review-meta">Updated {r.updated}</span>
+            </a>
+          ))}
         </div>
-        <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
-      </section>
+        )}
+      </aside>
     </div>
   </main>
 </Base>
@@ -168,6 +219,56 @@ const categories = [
   .chip:hover { background: rgba(255, 255, 255, 0.24); }
   .chip.active { background: #fff; border-color: #fff; color: #1e66f5; font-weight: 700; }
 
+  /* ===== 主体双列：左商品 + 右侧栏 ===== */
+  .home-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 36px;
+    align-items: start;
+    padding-top: 32px;
+  }
+  .side { position: sticky; top: 84px; }
+  .side-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .side-title { margin: 0 0 12px; font-size: 15px; font-weight: 800; letter-spacing: -0.2px; }
+
+  /* 排行榜 */
+  .rank { margin: 0; padding: 0; list-style: none; }
+  .rank li + li { border-top: 1px solid var(--border); }
+  .rank-item {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    grid-template-rows: auto auto;
+    gap: 1px 8px;
+    padding: 10px 4px;
+    text-decoration: none;
+  }
+  .rank-num {
+    grid-row: 1 / 3;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--yellow-bg); color: var(--yellow-ink);
+    border-radius: 6px;
+    font-size: 12px; font-weight: 800;
+  }
+  .rank-name {
+    font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .rank-meta { font-size: 12px; color: var(--muted); }
+
+  /* 侧栏文章入口 */
+  .side-review { display: flex; flex-direction: column; gap: 3px; text-decoration: none; padding: 9px 4px; }
+  .side-review + .side-review { border-top: 1px solid var(--border); }
+  .side-review-title { font-size: 13.5px; font-weight: 700; color: var(--ink); line-height: 1.35; }
+  .side-review:hover .side-review-title { color: var(--blue); }
+  .side-review-meta { font-size: 12px; color: var(--muted); }
+
   .section { margin-top: 32px; }
   .section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
   .section-head h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
@@ -181,10 +282,16 @@ const categories = [
 
   .empty { text-align: center; color: var(--muted); padding: 48px 0; font-size: 15px; }
 
+  @media (max-width: 1020px) {
+    .home-cols { grid-template-columns: 1fr; }
+    .side { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .side-box { margin-bottom: 0; }
+  }
   @media (max-width: 640px) {
     .hero { padding: 32px 0 38px; border-radius: 0 0 18px 18px; }
     .hero h1 { font-size: 26px; }
     .search-box { max-width: 100%; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .side { grid-template-columns: 1fr; }
   }
 </style>

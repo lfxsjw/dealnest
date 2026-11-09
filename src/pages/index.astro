@@ -2,25 +2,10 @@
 // 首页（测评站版）：口号 + 搜索 + 分类 + 测评文章列表 + 追踪中的优惠 + 侧栏
 import Base from '../layouts/Base.astro';
 import reviewsData from '../data/reviews.json';
-import dealsData from '../data/deals.json';
 
 const reviews = reviewsData.reviews;
-const allDeals = dealsData.deals;
 
-// 侧栏排行榜：按评论数降序取前 6（自动跟着 deals.json 变）
-const topReviewed = [...allDeals]
-  .filter((d) => typeof d.reviews === 'number')
-  .sort((a, b) => b.reviews - a.reviews)
-  .slice(0, 6);
 
-// 评论数格式化：4600 → 4.6k
-function fmtReviews(n) {
-  if (n >= 1000) {
-    const v = (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '');
-    return v + 'k';
-  }
-  return String(n);
-}
 
 // 分类体系（测评站）：chips 想加品类在这里加一项，deals.json / reviews.json 的 category 用同名 slug
 const categories = [
@@ -131,37 +116,6 @@ const sourceLabels = {
       <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
     </div>
 
-    <!-- 侧栏：文章入口 + 商品排行榜（宽屏在右侧，手机移到底部） -->
-    <aside class="side">
-      {reviews.length > 0 && (
-      <div class="side-box">
-        <h3 class="side-title">Worth a read</h3>
-        {reviews.slice(0, 4).map((r) => (
-          <a class="side-review" href={`/review/${r.id}/`}>
-            <span class="side-review-title">{r.title}</span>
-            <span class="side-review-meta">Updated {r.updated}</span>
-          </a>
-        ))}
-      </div>
-      )}
-
-      {topReviewed.length > 0 && (
-      <div class="side-box">
-        <h3 class="side-title">Most-loved on Amazon</h3>
-        <ol class="rank">
-          {topReviewed.map((d, i) => (
-            <li>
-              <a class="rank-item" href={`/go/${d.id}`} target="_blank" rel="noopener sponsored">
-                <span class="rank-num">{i + 1}</span>
-                <span class="rank-name">{d.title}</span>
-                <span class="rank-meta">${d.price?.toFixed(2)} · {d.rating} ({fmtReviews(d.reviews)})</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-      )}
-    </aside>
   </div>
   </main>
 </Base>
@@ -330,7 +284,7 @@ const sourceLabels = {
   /* ===== 主体双列 ===== */
   .home-cols {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: 1fr;
     gap: 36px;
     align-items: start;
     padding-top: 30px;
@@ -431,8 +385,6 @@ const sourceLabels = {
   /* ===== 响应式 ===== */
   @media (max-width: 1020px) {
     .home-cols { grid-template-columns: 1fr; }
-    .side { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .side-box { margin-bottom: 0; }
   }
   @media (max-width: 640px) {
     .hero { padding: 36px 0 44px; border-radius: 0 0 18px 18px; }
@@ -441,7 +393,6 @@ const sourceLabels = {
     .search-box { max-width: 100%; }
     .trust-grid { grid-template-columns: 1fr; }
     .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .side { grid-template-columns: 1fr; }
     .section { margin-top: 26px; }
   }
 </style>
