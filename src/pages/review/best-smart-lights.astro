@@ -1,0 +1,358 @@
+---
+// 测评文章 #4：智能照明（Tom's Guide 结构）
+// 数据来源（2026-11-09 核实）：Wirecutter 智能灯泡指南（两年首选 WiZ）、RTINGS HomeKit 照明评价、各品牌官方规格、多家独立实测汇总
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Best Smart Lights in the US (Late 2026) — DealWillow"
+  description="The best smart bulbs and lighting in the US right now: WiZ for value, Nanoleaf Essentials for HomeKit speed, Philips Hue for a whole-home system — plus the dimmer-switch mistake almost everyone makes."
+>
+  <main class="wrap article">
+    <a class="crumb" href="/">&larr; All reviews</a>
+
+    <div class="head">
+      <span class="cat-tag">Smart Home</span>
+      <h1>Best Smart Lights in the US (Late 2026)</h1>
+      <p class="meta">Updated Nov 2026 · Prices checked Nov 9, 2026 · US models only</p>
+    </div>
+
+    <div class="lede">
+      <p>
+        <strong>For most homes, start with WiZ bulbs.</strong> They're Wirecutter's budget pick two
+        years running at about $12 a bulb, work with Alexa, Google, and HomeKit without a hub, and
+        they're bright enough to actually light a room. If you're in Apple's ecosystem and want
+        instant response, the <strong>Nanoleaf Essentials A19</strong> is the Thread-based speed
+        champion — with one reliability caveat below. Building out 15+ fixtures? That's
+        <strong>Philips Hue</strong>, and it's worth the premium.
+      </p>
+    </div>
+
+    <h2 class="block-title">Everything we recommend</h2>
+    <div class="picks">
+      <a class="pick" href="#wiz">
+        <span class="pick-tag">Best overall</span>
+        <span class="pick-role">Wirecutter's pick two years running, ~$12/bulb</span>
+        <span class="pick-name">WiZ Connected Smart Bulbs</span>
+        <span class="pick-price">~$12–13 · Amazon</span>
+      </a>
+      <a class="pick" href="#nanoleaf">
+        <span class="pick-tag alt">Fastest response</span>
+        <span class="pick-role">Thread mesh, sub-120 ms — best for HomeKit</span>
+        <span class="pick-name">Nanoleaf Essentials A19 Matter</span>
+        <span class="pick-price">~$20 · Amazon</span>
+      </a>
+      <a class="pick" href="#hue">
+        <span class="pick-tag">Best ecosystem</span>
+        <span class="pick-role">The reliable whole-home system, at a price</span>
+        <span class="pick-name">Philips Hue (Color A19 + Bridge)</span>
+        <span class="pick-price">~$50/bulb + $60 bridge</span>
+      </a>
+    </div>
+
+    <!-- ============ 1. WiZ ============ -->
+    <section class="product" id="wiz">
+      <h2 class="prod-role">Best overall</h2>
+      <h3 class="prod-name">1. WiZ Connected Smart Bulbs</h3>
+
+      <div class="specs">
+        <div><span>Price</span><b>~$12–13 per bulb</b></div>
+        <div><span>Brightness</span><b>800 lm (60W-equivalent)</b></div>
+        <div><span>Protocol</span><b>Wi-Fi + Bluetooth, no hub</b></div>
+        <div><span>Ecosystems</span><b>Alexa · Google Home · Apple HomeKit</b></div>
+        <div><span>Colors</span><b>16M colors + tunable white</b></div>
+        <div><span>Setup</span><b>Under 2 minutes per bulb</b></div>
+      </div>
+
+      <div class="proscons">
+        <div class="pros">
+          <p class="pc-title">Reasons to buy</p>
+          <ul>
+            <li>Wirecutter's top budget smart bulb for 2025 and 2026</li>
+            <li>Works with all three major ecosystems — no hub, no lock-in</li>
+            <li>800 lumens matches bulbs costing 2–4× more</li>
+            <li>64,000+ scenes in the app; cheapest way to light a whole home</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <p class="pc-title">Reasons to avoid</p>
+          <ul>
+            <li>Wi-Fi direct gets congested past ~15 bulbs on a standard router</li>
+            <li>Color saturation isn't as rich as LIFX's</li>
+            <li>Scenes are simpler than Hue's; the premium brands are better at "theater"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          WiZ is a Philips brand — the same lighting engineering as Hue at a fraction of the cost —
+          and it shows. Setup takes about two minutes per bulb: screw it in, scan, done. No bridge,
+          no hub, and it speaks HomeKit, Alexa, and Google, which means the "will it work with my
+          phone" question has a yes answer regardless of what you own.
+        </p>
+        <p>
+          The math is the real argument. Ten WiZ bulbs run about $120. Ten Hue bulbs run about $450
+          plus a $50–60 bridge — a difference near $400 for a setup most people can't tell apart in
+          daily use. Wirecutter has kept WiZ as its budget pick for two consecutive years, and the
+          tunable white plus 16M colors cover everything from dinner lighting to movie night.
+        </p>
+        <p>
+          Where it falters is scale: at 15+ bulbs, a direct Wi-Fi architecture starts competing for
+          airtime and gets flaky, where Zigbee (Hue) and Thread (Nanoleaf) mesh and coast. If you're
+          lighting a living room, buy WiZ. If you're lighting a house, read two sections down.
+        </p>
+        <p><strong>The bottom line:</strong> the best "stop thinking and buy it" smart bulb money can buy.</p>
+      </div>
+    </section>
+
+    <!-- ============ 2. Nanoleaf ============ -->
+    <section class="product" id="nanoleaf">
+      <h2 class="prod-role">Fastest response</h2>
+      <h3 class="prod-name">2. Nanoleaf Essentials A19 Matter</h3>
+
+      <div class="specs">
+        <div><span>Price</span><b>~$20 single · ~$10/bulb in 3-packs</b></div>
+        <div><span>Protocol</span><b>Thread + Bluetooth, Matter-native</b></div>
+        <div><span>Response</span><b>Under 120 ms (Thread mesh)</b></div>
+        <div><span>Brightness</span><b>800 lm</b></div>
+        <div><span>Requires</span><b>Thread border router (HomePod mini / Apple TV / Nest Hub)</b></div>
+        <div><span>Color temp</span><b>Widest range of any bulb tested</b></div>
+      </div>
+
+      <div class="proscons">
+        <div class="pros">
+          <p class="pc-title">Reasons to buy</p>
+          <ul>
+            <li>Sub-120 ms response — faster than any Wi-Fi bulb (250–400 ms)</li>
+            <li>RTINGS' top-rated HomeKit light in 2026</li>
+            <li>Each bulb strengthens your Thread mesh for other devices</li>
+            <li>Matter-native, which is where the whole industry is headed</li>
+            <li>Cheapest color smart lighting at scale (~$10/bulb in packs)</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <p class="pc-title">Reasons to avoid</p>
+          <ul>
+            <li>Needs a Thread border router to hit its speed</li>
+            <li>Reliability complaints: some testers report "Not Responding" and Thread/Bluetooth flapping in Apple Home</li>
+            <li>The Nanoleaf app is less polished than Hue's</li>
+            <li>800 lm — fine for lamps, weak for ceiling fixtures</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          The reason to care about Nanoleaf Essentials is speed. Thread is a mesh protocol, and it
+          responds in under 120 ms — vs 250–400 ms for most Wi-Fi bulbs and 150–200 ms for Zigbee.
+          When a motion sensor fires, the light is on before you're through the doorway. RTINGS rated
+          it the best HomeKit bulb of 2026 for exactly this reason.
+        </p>
+        <p>
+          Now the caveat, and it's a real one: sources disagree on reliability. RTINGS' lab results
+          are excellent, but at least one independent tester reports the bulbs showing "Not Responding"
+          in Apple Home and flip-flopping between Bluetooth and Thread — and their Home Assistant
+          Matter pairing never succeeded. Both things can be true: hardware that wins benchmarks and a
+          firmware stack that wobbles. If you're buying for precision automations, buy from a retailer
+          with an easy return window and test the mesh in your house for a week.
+        </p>
+        <p><strong>The bottom line:</strong> the right bulb if your automations care about milliseconds and you're already in the Apple/Google Thread world.</p>
+      </div>
+    </section>
+
+    <!-- ============ 3. Hue ============ -->
+    <section class="product" id="hue">
+      <h2 class="prod-role">Best ecosystem</h2>
+      <h3 class="prod-name">3. Philips Hue (Color A19 + Bridge)</h3>
+
+      <div class="specs">
+        <div><span>Price</span><b>~$50/bulb + ~$60 bridge</b></div>
+        <div><span>Brightness</span><b>1,100 lm (Color A19)</b></div>
+        <div><span>Protocol</span><b>Zigbee via Hue Bridge</b></div>
+        <div><span>Color temp</span><b>2,000–6,500 K</b></div>
+        <div><span>Scale</span><b>Up to 50 bulbs per bridge, local processing</b></div>
+        <div><span>Unique</span><b>Movie/music sync (Entertainment), 1,000+ integrations</b></div>
+      </div>
+
+      <div class="proscons">
+        <div class="pros">
+          <p class="pc-title">Reasons to buy</p>
+          <ul>
+            <li>Most reliable at scale — Zigbee mesh, local processing</li>
+            <li>Brightest mainstream bulb at 1,100 lm</li>
+            <li>Entertainment sync with movies, games and music</li>
+            <li>Largest accessory ecosystem (switches, sensors, outdoor fixtures)</li>
+            <li>Best color consistency — Delta-E under 2.0 in lab testing</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <p class="pc-title">Reasons to avoid</p>
+          <ul>
+            <li>Expensive: 10 bulbs ≈ $560 with the bridge</li>
+            <li>Hub required — one more box to power and manage</li>
+            <li>Overkill for one or two rooms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="body">
+        <p>
+          Hue is the expensive answer that keeps being the right one when you get serious. The bridge
+          processes locally, so automations fire even when the internet is down; the Zigbee mesh gets
+          more reliable as you add bulbs, not less; and no other system offers the same range of
+          switches, sensors, and outdoor fixtures. It's also the only mainstream system with
+          entertainment sync — lights that follow movies, games, and music.
+        </p>
+        <p>
+          Pricing is the whole debate. Starting a Hue system costs about $110 (bridge + one bulb) and
+          scaling to a 10-bulb home runs over $500 — versus about $120 for WiZ. For a bedroom or a
+          desk, that premium buys polish you don't need. For a whole home where every switch matters
+          and "the lights are down" is not an acceptable answer, it's the cost of reliability.
+        </p>
+        <p><strong>The bottom line:</strong> buy Hue once your lighting problem is a house, not a room.</p>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2 class="block-title">Also worth knowing</h2>
+      <p>
+        <strong>LIFX</strong> is the brightness champion — 1,100 lm with no hub and the widest color
+        gamut, at ~$30–45/bulb. <strong>Govee</strong> is the effects brand: music-synced scenes at
+        $8–14/bulb, and if your goal is "party lighting," nothing else comes close.
+        <strong>Kasa KL135</strong> (~$15, 1,000 lm) is the boring-but-reliable Wi-Fi option — though
+        it leans on TP-Link's cloud for automations.
+      </p>
+      <p>
+        For decorative and accent lighting rather than bulbs, <strong>Nanoleaf's Shapes panels and
+        monitor-stand light</strong> turn walls and desks into ambient light fixtures — a different
+        product category from bulbs, priced accordingly. And if you want to automate a patio, an
+        <strong>outdoor string-light set</strong> is a cheaper route than Hue's outdoor fixtures,
+        though weatherproofing claims vary by brand.
+      </p>
+    </section>
+
+    <section class="sec">
+      <h2 class="block-title">How we picked</h2>
+      <p>
+        We leaned on the two sources that publish their methods — Wirecutter's smart bulb guide (its
+        budget pick has been WiZ for two consecutive years) and RTINGS' lighting tests (its HomeKit
+        top rating went to Nanoleaf Essentials) — then verified specs and pricing against each brand's
+        US product pages. Where independent testers disagreed with lab results, as they do on
+        Nanoleaf's Thread reliability, we wrote both sides down instead of picking the tidier one.
+        Prices were checked on <strong>Nov 9, 2026</strong>.
+      </p>
+    </section>
+
+    <section class="sec">
+      <h2 class="block-title">Before you buy: two mistakes almost everyone makes</h2>
+      <p>
+        <strong>Don't put smart bulbs on a traditional dimmer switch.</strong> Smart bulbs dim
+        themselves; a dimmer feeding them variable voltage causes flickering, buzzing, and dead bulbs.
+        If you want a physical wall control, use a smart switch or a battery-powered remote designed
+        for your ecosystem.
+      </p>
+      <p>
+        <strong>Budget for standby power and don't panic about it.</strong> Smart bulbs draw about
+        0.3–0.5 W while idle — roughly $1–2 per bulb per year. What actually matters is lifetime:
+        most are rated 15,000–25,000 hours, about 10–15 years of normal use, though the electronics age
+        before the LED does.
+      </p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .article { max-width: 780px; padding-top: 40px; padding-bottom: 30px; }
+  .crumb { font-size: 13.5px; text-decoration: none; font-weight: 600; }
+
+  .head { margin-top: 14px; }
+  .cat-tag {
+    display: inline-block;
+    font-size: 11.5px; font-weight: 800;
+    color: #1e66f5; background: #e0ecff;
+    padding: 3px 10px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .article h1 { margin: 0 0 6px; font-size: 31px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; }
+  .meta { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+  .lede { margin-top: 20px; }
+  .lede p { margin: 0; font-size: 17px; line-height: 1.7; color: #1f2937; }
+
+  .block-title { margin: 34px 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+
+  .picks { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .pick {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .pick:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .pick-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 800;
+    color: #1d4ed8; background: #dbeafe;
+    padding: 3px 9px; border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .pick-tag.alt { color: #b45309; background: #fef3c7; }
+  .pick-role { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 3px; }
+  .pick-name { display: block; font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+  .pick-price { display: block; font-size: 13px; color: #374151; }
+
+  .product { margin-top: 40px; }
+  .prod-role {
+    margin: 0;
+    font-size: 12.5px; font-weight: 800;
+    color: #1d4ed8; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .prod-name { margin: 2px 0 14px; font-size: 26px; font-weight: 800; letter-spacing: -0.4px; }
+
+  .specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .specs div {
+    display: flex; flex-direction: column;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .specs div:nth-child(2n) { border-right: none; }
+  .specs span { font-size: 11.5px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+  .specs b { font-size: 13.5px; color: var(--ink); font-weight: 700; }
+
+  .proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 4px; }
+  .pros, .cons { border-radius: 12px; padding: 14px 18px; }
+  .pros { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .cons { background: #fef2f2; border: 1px solid #fecaca; }
+  .pc-title { margin: 0 0 8px; font-size: 13.5px; font-weight: 800; }
+  .pros .pc-title { color: #15803d; }
+  .cons .pc-title { color: #b91c1c; }
+  .pros ul, .cons ul { margin: 0; padding-left: 18px; }
+  .pros li, .cons li { font-size: 13.5px; line-height: 1.6; color: #1f2937; margin-bottom: 6px; }
+  .pros li:last-child, .cons li:last-child { margin-bottom: 0; }
+
+  .body { margin-top: 18px; }
+  .body p { margin: 0 0 12px; font-size: 15.5px; line-height: 1.75; color: #1f2937; }
+
+  .sec { margin-top: 32px; }
+  .sec p { margin: 0 0 12px; font-size: 15.5px; line-height: 1.75; color: #1f2937; }
+
+  @media (max-width: 640px) {
+    .article h1 { font-size: 25px; }
+    .prod-name { font-size: 22px; }
+    .picks, .proscons { grid-template-columns: 1fr; }
+    .specs { grid-template-columns: 1fr; }
+    .specs div { border-right: none; }
+  }
+</style>

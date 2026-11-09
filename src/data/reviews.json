@@ -2,6 +2,18 @@
   "_说明": "测评文章索引。首页'Latest reviews'区、侧栏'Worth a read'都从这里渲染。写了一篇新测评 = 加一段 + 在 src/pages/review/ 下建对应文章页。字段：id=网址用的编号（/review/下面这个/）；category=分类（phones/tablets/tvs/laundry/cameras/smart-home/accessories 之一，和首页 chips 对应）；title=文章标题；summary=一句话摘要（显示在卡片上）；updated=更新日期（美式英文月份，如 'Nov 2026'，研究要求里规定要记录查询日期）；sources=这篇用了哪几类信息（manufacturer=厂商声明 / independent-testing=独立评测 / buyer-feedback=买家反馈），卡片上会显示来源标签。",
   "reviews": [
     {
+      "id": "best-smart-lights",
+      "category": "smart-home",
+      "title": "Best Smart Lights in the US (Late 2026)",
+      "summary": "WiZ for value, Nanoleaf Essentials for HomeKit speed, Philips Hue for a whole-home system — and the dimmer-switch mistake almost everyone makes.",
+      "updated": "Nov 2026",
+      "sources": [
+        "manufacturer",
+        "independent-testing",
+        "buyer-feedback"
+      ]
+    },
+    {
       "id": "best-portable-power-stations",
       "category": "accessories",
       "title": "Best Portable Power Stations in the US (Late 2026)",
