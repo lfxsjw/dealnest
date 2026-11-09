@@ -9,6 +9,12 @@ const { title = `${siteName} — Amazon Deals & Promo Codes`, description = 'Han
 // 基于 astro.config.mjs 里的 site 配置 + 当前页面路径拼出来
 const site = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
 const canonical = `${site}${Astro.url.pathname}`;
+
+// 当前页面路径：用来给导航栏高亮"你在哪个板块"
+const path = Astro.url.pathname;
+// 判断板块归属（测评板块 = 首页和文章页；Amazon 板块 = /amazon/）
+const inReviews = path === '/' || path.startsWith('/review/');
+const inAmazon = path.startsWith('/amazon');
 ---
 <!doctype html>
 <html lang="en">
@@ -37,8 +43,10 @@ const canonical = `${site}${Astro.url.pathname}`;
         <span>{siteName}</span>
       </a>
       <nav class="topnav">
+        <a class="nav-link" class:list={{ active: inReviews }} href="/">Reviews</a>
+        <a class="nav-link" class:list={{ active: inAmazon }} href="/amazon/">Amazon</a>
         <span class="badge-dot">Updated daily</span>
-        <a href="/privacy/">Privacy &amp; Disclosure</a>
+        <a class="nav-link" href="/privacy/">Privacy &amp; Disclosure</a>
       </nav>
     </div>
   </header>
@@ -163,6 +171,13 @@ const canonical = `${site}${Astro.url.pathname}`;
     .topnav { display: flex; align-items: center; gap: 16px; font-size: 14px; }
     .topnav a { color: var(--muted); text-decoration: none; font-weight: 500; }
     .topnav a:hover { color: var(--ink); }
+    /* 导航栏两个板块入口：当前所在板块高亮 */
+    .nav-link { padding: 4px 2px; position: relative; }
+    .nav-link.active {
+      color: var(--ink) !important;
+      font-weight: 800 !important;
+      box-shadow: inset 0 -2px 0 var(--blue);
+    }
     .badge-dot {
       color: #15803d; background: #dcfce7; border-radius: 999px;
       padding: 3px 10px; font-size: 12px; font-weight: 600; white-space: nowrap;

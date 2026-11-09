@@ -1,13 +1,8 @@
 ---
 // 首页（测评站版）：口号 + 搜索 + 分类 + 测评文章列表 + 追踪中的优惠 + 侧栏
 import Base from '../layouts/Base.astro';
-import DealCard from '../components/DealCard.astro';
-import dealsData from '../data/deals.json';
 import reviewsData from '../data/reviews.json';
 
-const all = dealsData.deals;
-const featured = all.filter((d) => d.featured);
-const evergreen = all.filter((d) => !d.featured);
 const reviews = reviewsData.reviews;
 
 // 分类体系（测评站）：chips 想加品类在这里加一项，deals.json / reviews.json 的 category 用同名 slug
@@ -23,14 +18,8 @@ const categories = [
 ];
 
 // 统计数字：自动算，不撒谎
-const dealCount = all.length;
 const reviewCount = reviews.length;
 
-// 侧栏排行榜：按评论数降序取前 6（自动跟着 deals.json 变）
-const topReviewed = [...all]
-  .filter((d) => typeof d.reviews === 'number')
-  .sort((a, b) => b.reviews - a.reviews)
-  .slice(0, 6);
 
 // 来源标签的显示文案
 const sourceLabels = {
@@ -39,14 +28,6 @@ const sourceLabels = {
   'buyer-feedback': 'Buyer feedback',
 };
 
-// 评论数格式化
-function fmtReviews(n) {
-  if (n >= 1000) {
-    const v = (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '');
-    return v + 'k';
-  }
-  return String(n);
-}
 ---
 <Base
   title="DealWillow — Appliance Reviews with Nothing Invented"
@@ -57,7 +38,7 @@ function fmtReviews(n) {
   <section class="hero">
     <div class="wrap hero-in single">
       <div class="hero-left">
-        <p class="hero-stat">{reviewCount} in-depth review{reviewCount === 1 ? '' : 's'} · {dealCount} deal{dealCount === 1 ? '' : 's'} tracked</p>
+        <p class="hero-stat">{reviewCount} in-depth review{reviewCount === 1 ? '' : 's'}</p>
         <h1>Appliance reviews with <span class="hl">nothing invented</span></h1>
         <p class="sub">We summarize manufacturer specs, named lab tests, and verified buyer feedback for phones, TVs, washers, cameras, and smart home gear — and we label where every claim comes from.</p>
         <div class="search-box">
@@ -128,19 +109,6 @@ function fmtReviews(n) {
         </div>
       </section>
 
-      <!-- 区块二：追踪中的优惠（保留联盟变现入口） -->
-      {featured.length + evergreen.length > 0 && (
-      <section class="section" id="section-evergreen">
-        <div class="section-head">
-          <h2>🔥 Amazon bestsellers</h2>
-          <span class="section-note">Hot items worth a look — prices checked when listed</span>
-        </div>
-        <div class="grid">
-          {featured.map((deal) => <DealCard deal={deal} />)}
-          {evergreen.map((deal) => <DealCard deal={deal} />)}
-        </div>
-      </section>
-      )}
 
       <!-- 搜索/过滤无结果时的提示 -->
       <p class="empty" id="empty" hidden>No matches — try another word or category.</p>
@@ -159,7 +127,7 @@ function fmtReviews(n) {
 
   function applyFilter() {
     let visible = 0;
-    document.querySelectorAll('[data-review-card], [data-deal-card]').forEach((card) => {
+    document.querySelectorAll('[data-review-card]').forEach((card) => {
       const matchCat = state.cat === 'all' || card.dataset.category === state.cat;
       const hay = card.dataset.search || '';
       const matchQ = !state.q || hay.includes(state.q);
@@ -170,7 +138,7 @@ function fmtReviews(n) {
 
     // 某个区块如果全空了，把区块标题也藏起来
     document.querySelectorAll('.section').forEach((sec) => {
-      const cards = sec.querySelectorAll('[data-review-card], [data-deal-card]');
+      const cards = sec.querySelectorAll('[data-review-card]');
       const anyVisible = [...cards].some((c) => c.style.display !== 'none');
       sec.hidden = !anyVisible;
     });
