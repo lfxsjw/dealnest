@@ -84,7 +84,7 @@
       "expires": null,
       "rating": 4.0,
       "reviews": 1373,
-      "category": "accessories",
+      "category": "cameras",
       "featured": false,
       "description": "4K PoE security camera with 16X optical zoom and 360° auto-tracking — one camera watches the whole yard."
     },
@@ -101,7 +101,7 @@
       "expires": null,
       "rating": 4.3,
       "reviews": 1660,
-      "category": "accessories",
+      "category": "cameras",
       "featured": false,
       "description": "4K PoE camera with 5X optical zoom and full-color night vision — wired reliability, no battery to charge."
     },
@@ -118,7 +118,7 @@
       "expires": null,
       "rating": 4.6,
       "reviews": 21,
-      "category": "accessories",
+      "category": "smart-home",
       "featured": false,
       "description": "Wooden monitor riser with built-in RGB task and ambient lighting — clears desk clutter and lights it at the same time."
     },
@@ -135,7 +135,7 @@
       "expires": null,
       "rating": 3.7,
       "reviews": 73,
-      "category": "accessories",
+      "category": "smart-home",
       "featured": false,
       "description": "Matter smart string lights with 60 color bulbs — control from any app and automate with the rest of your setup."
     }
