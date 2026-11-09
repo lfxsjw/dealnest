@@ -1,0 +1,200 @@
+---
+// 测评文章页样板：合规结构 = 来源图例 + 编辑判断(非亲测) + 分节内容(标注来源) + 无法核实清单 + 来源列表
+// 写新测评 = 复制这个文件，改 frontmatter 的标题/日期/副标题，正文按同样结构写
+import Base from '../../layouts/Base.astro';
+---
+<Base
+  title="Best Budget 4K TVs in the US (Late 2026) — DealWillow"
+  description="A research summary of the best budget 4K TVs in the US: TCL QM6K and Vizio Mini LED Quantum, with manufacturer specs, named independent testing, and recurring buyer feedback — every claim labeled by source."
+>
+  <main class="wrap article">
+    <a class="crumb" href="/">&larr; All reviews</a>
+
+    <div class="head">
+      <span class="cat-tag">TVs</span>
+      <h1>Best Budget 4K TVs in the US (Late 2026)</h1>
+      <p class="subtitle">A research summary — not hands-on testing</p>
+      <p class="meta">Updated Nov 2026 · Information checked Nov 9, 2026 · US market</p>
+    </div>
+
+    <!-- 来源图例：本站诚信承诺的落地 -->
+    <div class="howto">
+      <p class="howto-title">How this review works</p>
+      <p class="howto-text">We have not tested these TVs ourselves. Everything below is collected from named sources and labeled by type, so you can weigh it yourself:</p>
+      <ul>
+        <li><span class="lbl mfg">Manufacturer specs</span> — from the brand's official US product pages.</li>
+        <li><span class="lbl lab">Independent testing</span> — from named review labs that measure TVs (Wirecutter, RTINGS).</li>
+        <li><span class="lbl user">Buyer feedback</span> — recurring patterns from US owners on Reddit and retailer discussions.</li>
+        <li><span class="lbl ed">Editorial judgment</span> — our conclusions from combining the above. Opinion, not measurement.</li>
+      </ul>
+    </div>
+
+    <!-- 编辑判断结论 -->
+    <div class="verdict">
+      <p class="verdict-title">Our editorial take</p>
+      <p class="verdict-text">
+        For most buyers under $500, the <strong>TCL QM6K</strong> is the safest pick: it's the
+        runner-up in Wirecutter's 2026 budget-TV guide, its specs are verified on TCL's own site
+        (144&nbsp;Hz, QD-Mini&nbsp;LED, four HDMI inputs), and owner discussion leans clearly
+        positive. Its known weaknesses — glare in bright rooms and so-so sports motion — are
+        common to this entire price tier. The <strong>Vizio Mini LED Quantum</strong> gets brighter
+        for less money (Wirecutter's top pick), but independent sources disagree about its picture
+        processing, and it requires a Walmart account plus Walmart-exclusive retail. That's a
+        values trade-off, not a clear win.
+      </p>
+    </div>
+
+    <!-- 主推：TCL QM6K -->
+    <section class="sec">
+      <h2>The safe pick: TCL QM6K</h2>
+      <p class="price-line"><span class="lbl mfg">Prices</span> ~$500 for 55" (55QM6K) at Amazon, per Wirecutter's listing, checked Nov 9, 2026. Owner discussion puts street prices between $400–$530 depending on size and sales. Prices change often — verify before buying.</p>
+
+      <h3>What the manufacturer says <span class="lbl mfg">Manufacturer specs</span></h3>
+      <p>From TCL's official US product page for the 55QM6K: QD-Mini LED backlight with quantum-dot color, up to LD500 local dimming zones, native 144&nbsp;Hz panel with VRR up to 144&nbsp;Hz, four HDMI inputs (one eARC), Google TV platform, 40&nbsp;W Onkyo 2.1 speaker system, and a one-year limited warranty. HDR support covers HDR10, HDR10+, HLG, and Dolby Vision (including Dolby Vision Gaming and IQ). Sizes run 55" to 98".</p>
+
+      <h3>What independent testing found <span class="lbl lab">Independent testing</span></h3>
+      <p>Wirecutter (NYT) named the QM6K its budget-TV runner-up in 2026, praising its fast, accurate local dimming ("consistently inky and immersive shadow tones"), its Google TV platform, and its 144&nbsp;Hz refresh rate for gamers — while noting it is measurably less bright than its top pick (roughly 600 nits versus ~1,000). RTINGS has a full QM6K review and maintains discussion threads from owners on its site.</p>
+
+      <h3>What owners keep saying <span class="lbl user">Buyer feedback</span></h3>
+      <p>A Reddit-sentiment analysis of 108 owner mentions (ThreadVerdict, updated Sep 2026) scores the QM6K 8.6/10 with 79% positive: people praise movie and HDR picture quality, big-screen value, and brightness for the price. The same recurring complaints show up across multiple threads: noticeable glare in bright rooms, color washout at side viewing angles, blurry motion during sports, and halo/blooming around subtitles (a side effect of the ~500 dimming zones). A smaller number of owners report quality-control issues — panel banding, flickering when local contrast is enabled, one report of a set dying within six months with slow manufacturer support. These reports are real but appear to be a minority of units; we could not verify how widespread they are.</p>
+    </section>
+
+    <!-- 分歧选项：Vizio -->
+    <section class="sec">
+      <h2>The brighter, more divisive option: Vizio Mini LED Quantum</h2>
+      <p class="price-line"><span class="lbl mfg">Prices</span> $278 for 55" at Walmart (Wirecutter, checked Nov 9, 2026; a $248 deal price was listed in a syndicated version). Sold exclusively at Walmart and Sam's Club.</p>
+
+      <h3>Where sources agree</h3>
+      <p><span class="lbl lab">Independent testing</span> Wirecutter measured around 1,000 nits of peak brightness on the 75-inch model — exceptional for this price — and made it their top budget pick, citing strong color, low input lag, and full HDR format support. <span class="lbl mfg">Manufacturer specs</span>: mini-LED with full-array local dimming, quantum dots, 60&nbsp;Hz native refresh (1080p at 120&nbsp;Hz supported), three HDMI 2.1 inputs, Vizio OS.</p>
+
+      <h3>Where sources conflict — and we won't hide it</h3>
+      <p><span class="lbl lab">Independent testing</span> Other coverage citing RTINGS measurements reports weak black levels, visible blooming, and middling picture processing for this set, ranking it behind pricier rivals — and RTINGS-measured numbers have also been circulated in Chinese-language tech coverage with conflicting port specs (HDMI 2.0 vs 2.1). We could not fully reconcile these conflicting claims from primary sources, so treat the Vizio's picture processing as <span class="lbl unk">unverified</span> until you check current RTINGS numbers yourself.</p>
+      <p><span class="lbl user">Buyer feedback</span> The Walmart-account requirement for smart features is a recurring privacy complaint, and Vizio's smart platform has drawn years of criticism for ads and sluggishness. Some owners bypass it entirely with an external streaming box.</p>
+    </section>
+
+    <!-- 备选一句带过 -->
+    <section class="sec">
+      <h2>Also on the shortlist</h2>
+      <p><span class="lbl ed">Editorial judgment</span> Based on secondary roundups (smarttvs.org, Sekin's aggregation of RTINGS and Tom's Guide coverage, checked Nov 9, 2026): the <strong>Hisense U6/U65QF</strong> line is repeatedly cited as the brightest HDR alternative under $500, and the <strong>TCL Q6</strong> as the easiest all-rounder if the QM6K is over budget. We have not cross-verified those models against primary sources yet — they're leads, not recommendations.</p>
+    </section>
+
+    <!-- 谁该跳过这个价位 -->
+    <section class="sec">
+      <h2>Who should skip this price tier entirely</h2>
+      <p><span class="lbl ed">Editorial judgment</span> If your room gets heavy daytime sun, you watch a lot of sports, or you want 4K/120&nbsp;Hz gaming without compromises, the sub-$500 tier will disappoint: every set here trades away sustained brightness, motion handling, or QC polish. Multiple sources point to the $700–$900 mini-LED tier (e.g., Hisense U7, TCL's higher QM tiers) as where those issues fade — that's a consistent pattern across sources, not our measurement.</p>
+    </section>
+
+    <!-- 无法核实清单：诚信原则的展示 -->
+    <section class="sec unk-box">
+      <h2>What we couldn't verify</h2>
+      <ul>
+        <li>How widespread the QM6K flicker reports are — several owners describe it in RTINGS discussion threads, but no major review lab has covered it, and some owners report no flicker at all.</li>
+        <li>Real-time prices. Everything listed above was checked on Nov 9, 2026, from the cited sources; TV prices move weekly, especially into holiday sales.</li>
+        <li>The conflicting Vizio port and picture-processing claims between English and Chinese-language coverage — we couldn't reach the primary RTINGS numbers for the exact US model during this check.</li>
+      </ul>
+    </section>
+
+    <!-- 来源列表：全部真实可查 -->
+    <section class="sec sources">
+      <h2>Sources</h2>
+      <ol>
+        <li>Wirecutter — "The Best 4K TV on a Budget" — thewirecutter.com/reviews/best-4k-tv-on-a-budget (accessed Nov 9, 2026)</li>
+        <li>TCL US official product page, 55QM6K — us.tcl.com (accessed Nov 9, 2026)</li>
+        <li>RTINGS — TCL QM6K review updates and owner discussions — rtings.com (accessed Nov 9, 2026)</li>
+        <li>ThreadVerdict — TCL QM6K Reddit sentiment analysis (108 mentions, Sep 2026) — threadverdict.com</li>
+        <li>smarttvs.org — "Best TV Under $500 in 2026" (accessed Nov 9, 2026)</li>
+        <li>Sekin — "The 3 Best Budget TVs of 2026" (aggregates RTINGS and Tom's Guide, checked Aug 2026)</li>
+      </ol>
+      <p class="sources-note">DealWillow is an Amazon Associate and earns from qualifying purchases made through buttons on this site — it never changes what you pay. This article contains no paid placement.</p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .article { max-width: 780px; padding-top: 40px; padding-bottom: 30px; }
+  .crumb { font-size: 13.5px; text-decoration: none; font-weight: 600; }
+
+  .head { margin-top: 14px; }
+  .cat-tag {
+    display: inline-block;
+    font-size: 11.5px; font-weight: 800;
+    color: #1e66f5; background: #e0ecff;
+    padding: 3px 10px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .article h1 { margin: 0 0 6px; font-size: 31px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; }
+  .subtitle { margin: 0; color: var(--muted); font-size: 15px; font-weight: 600; }
+  .meta { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+  /* 来源图例框 */
+  .howto {
+    margin-top: 22px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .howto-title { margin: 0 0 4px; font-weight: 800; font-size: 15.5px; }
+  .howto-text { margin: 0 0 10px; font-size: 14px; color: #374151; }
+  .howto ul { margin: 0; padding-left: 0; list-style: none; }
+  .howto li { font-size: 13.5px; color: #374151; line-height: 1.7; }
+
+  /* 来源标签 */
+  .lbl {
+    display: inline-block;
+    font-size: 10.5px; font-weight: 800;
+    padding: 2px 8px; border-radius: 5px;
+    letter-spacing: 0.02em;
+    vertical-align: 1px;
+    white-space: nowrap;
+  }
+  .lbl.mfg { color: #7c3aed; background: #f3e8ff; }
+  .lbl.lab { color: #1d4ed8; background: #dbeafe; }
+  .lbl.user { color: #047857; background: #d1fae5; }
+  .lbl.ed { color: #b45309; background: #fef3c7; }
+  .lbl.unk { color: #6b7280; background: #f3f4f6; }
+
+  /* 编辑判断框 */
+  .verdict {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #eef4ff 0%, #ffffff 80%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .verdict-title { margin: 0 0 8px; font-weight: 800; font-size: 15.5px; color: var(--blue); }
+  .verdict-text { margin: 0; font-size: 15.5px; line-height: 1.7; color: #1f2937; }
+
+  /* 正文分节 */
+  .sec { margin-top: 30px; }
+  .sec h2 { margin: 0 0 12px; font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+  .sec h3 { margin: 22px 0 8px; font-size: 16px; font-weight: 700; }
+  .sec p { margin: 0 0 12px; font-size: 15.5px; line-height: 1.75; color: #1f2937; }
+  .price-line {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px !important;
+  }
+
+  /* 无法核实清单 */
+  .unk-box {
+    background: #f9fafb;
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 4px 22px 16px;
+  }
+  .unk-box ul { padding-left: 20px; }
+  .unk-box li { font-size: 14.5px; line-height: 1.7; color: #374151; margin-bottom: 8px; }
+
+  /* 来源列表 */
+  .sources ol { padding-left: 20px; }
+  .sources li { font-size: 14px; line-height: 1.7; color: #374151; margin-bottom: 6px; }
+  .sources-note { margin-top: 14px; font-size: 12.5px; color: var(--muted) !important; }
+
+  @media (max-width: 640px) {
+    .article h1 { font-size: 25px; }
+  }
+</style>

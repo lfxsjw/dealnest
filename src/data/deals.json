@@ -14,7 +14,7 @@
       "expires": null,
       "rating": null,
       "reviews": null,
-      "category": "photo-printers",
+      "category": "accessories",
       "featured": false,
       "description": "Liene's official Amazon storefront — every current store promotion, coupon and bundle in one place."
     },
@@ -31,7 +31,7 @@
       "expires": null,
       "rating": 4.4,
       "reviews": 10652,
-      "category": "tech",
+      "category": "accessories",
       "featured": false,
       "description": "165W laptop power bank with built-in retractable USB-C cables — charges a MacBook and a phone at full speed at the same time. Flight-ready.",
       "trackingUrl": "https://www.amazon.com/dp/B0DCBB2YTR?lv=shuf&aa_adgroupid=5039xXpCyKcwuaOLxks9yyxFHMkGJhrAZwXOpWSP3A0qOg_bvfy78T_bR2eWHk_bxZau_aycKI67gc_alPvb4Kc2qNCilNg_c_c&maas=maas_adg_api_580067781349240060_static_12_201&aa_campaignid=PBa331389fb525493b6f2b68204f150537_38f42bc5c10d&tag=maas&aa_creativeid=12ffe_aH65NNh76jt6m5_a39nmRhxey6l_b5DcA_aob2KYV7iBc_c&channelId=404&ref_=aa_maas&plpRedirect=mhFallback&th=1"
@@ -49,7 +49,7 @@
       "expires": null,
       "rating": 4.5,
       "reviews": 10652,
-      "category": "tech",
+      "category": "accessories",
       "featured": false,
       "description": "Travel power bank with a built-in USB-C cable — top up an iPhone or a MacBook without carrying a single extra cord."
     },
@@ -67,7 +67,7 @@
       "expires": null,
       "rating": 4.7,
       "reviews": 746,
-      "category": "tech",
+      "category": "accessories",
       "featured": false,
       "description": "2kWh home backup that keeps a fridge running for 35 hours — $250 off list price, the biggest discount on this page."
     },
@@ -84,7 +84,7 @@
       "expires": null,
       "rating": 4.0,
       "reviews": 1373,
-      "category": "home",
+      "category": "accessories",
       "featured": false,
       "description": "4K PoE security camera with 16X optical zoom and 360° auto-tracking — one camera watches the whole yard."
     },
@@ -101,7 +101,7 @@
       "expires": null,
       "rating": 4.3,
       "reviews": 1660,
-      "category": "home",
+      "category": "accessories",
       "featured": false,
       "description": "4K PoE camera with 5X optical zoom and full-color night vision — wired reliability, no battery to charge."
     },
@@ -118,7 +118,7 @@
       "expires": null,
       "rating": 4.6,
       "reviews": 21,
-      "category": "office",
+      "category": "accessories",
       "featured": false,
       "description": "Wooden monitor riser with built-in RGB task and ambient lighting — clears desk clutter and lights it at the same time."
     },
@@ -135,7 +135,7 @@
       "expires": null,
       "rating": 3.7,
       "reviews": 73,
-      "category": "home",
+      "category": "accessories",
       "featured": false,
       "description": "Matter smart string lights with 60 color bulbs — control from any app and automate with the rest of your setup."
     }
