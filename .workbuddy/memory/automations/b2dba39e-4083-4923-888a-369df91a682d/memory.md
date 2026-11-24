@@ -34,3 +34,14 @@
 - 遗留规格冲突：①Idea Tab Pro 更新承诺（Lenovo 官方=Android 14→16 + 4 年补丁；Wirecutter=3 年 OS + 4 年补丁；Notebookcheck=可升 Android 17、补丁到 2028；另有来源写 2029）文内已标注未解决；②Idea Tab Pro 是否随箱附 45W 充电器（Lenovo 美国规格表列有，部分 SKU/地区无），文内提示核对
 - 观察：站上暂无平板类在售商品，本篇无法文内导流；deals.json 新增 Nanoleaf 显示器支架，下一篇"显示器"品类可自然导流
 
+
+## 2026-11-24（第二篇，20:19 触发）
+- 选题：洗衣机（候选池顺序第一个未写品类），分类沿用已存在的 `laundry`，无需改 categories 数组
+- 标题 "Best Washing Machines Under $1,000, and the One That Doesn't Smell"，slug `best-washing-machines`
+- 三家：LG WM4000H $879(LG.com)/$949–979(Best Buy,HD) / GE GFW655SSVWW $848(HD) / LG WT7005CW $695
+- 主线：CR 2026 给 WM4000HWA 87 分（约 120 台最高）；CR 会员调查前开式 13% 报霉斑 vs 顶开 HE 3%
+- 已写品类：laundry、tablets、phones、tvs、cameras（摄像头+门铃）、smart-home、accessories
+- 待写候选：扫地机器人、吸尘器、空气炸锅、咖啡机、mesh 路由器、显示器、蓝牙耳机、智能手表
+- 构建通过；dist 中 "We tested|In our testing|We found|We saw|We measured" 0 次、"We " 0 次；线上 40s 内 200，首页卡片与 sitemap 已收录
+- 遗留冲突：①WM4000H 价格 4 个口径（LG.com $879 / CR $848 / Wirecutter $949–979 / 某站 $1249.99 标价）；②GE 品牌可靠性两方矛盾（J.D. Power 2026 第一 vs Wirecutter 称低于 LG），文内已并列写明；③WT7005CW 经销商报价 $649.96–$697、深度参数 23⅜ vs 28 in 不一致，文中只写 27W×45H；④某 SEO 站称 WM4000HWA 转速仅 360 rpm、一星率 38%，与 LG 规格页/CR 的 1300 rpm 冲突，文内已标注该说法为错误待核实
+- 观察：站上无洗衣机关联商品（deals.json 仅 accessories/cameras/smart-home），本篇无法文内导流；下一篇若写"显示器"可挂 Nanoleaf 显示器支架
